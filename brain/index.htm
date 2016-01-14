@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<script type="text/javascript" src="copperlichtdata/copperlicht.js"></script>
+	
+	<title>Brain - MyProcedure, University of Minnesota Medical School</title>
+	
+	<script type="text/javascript">
+	func=1;
+	
+	function dFOV(shift) {
+	
+		if (func == 1)
+		{
+		var cam = engine.getScene().getActiveCamera();
+		var cfov = cam.getFov()
+		mfov = cfov + shift;
+		//bounds to keep the scene from being zoomed in either too close or too far away (zoom lock)
+		if (mfov < 0.2666370964050287) {mfov = 0.2666370964050287;}
+		if (mfov > 1.7366370964050291) {mfov = 1.7366370964050291;}
+		cam.setFov(mfov);
+		}
+	}
+		
+	function handle(delta) {
+		var s = delta + ": ";
+		if (delta < 0)
+			dFOV(0.05);
+		else
+			dFOV(-0.05);
+	}
+				 
+	function wheel(event){
+		var delta = 0;
+		if (!event) event = window.event;
+		if (event.wheelDelta) {
+			delta = event.wheelDelta/120; 
+			if (window.opera) delta = -delta;
+		} 
+		else if (event.detail) {
+			delta = -event.detail/3;
+		}
+		if (delta)
+			handle(delta);
+	}
+	
+	function loaded() 
+	{
+		/* Initialization code. */
+		if (window.addEventListener)
+			{window.addEventListener('DOMMouseScroll', wheel, false);}
+		window.onmousewheel = document.onmousewheel = wheel;
+		
+		document.getElementById('3darea').width = window.innerWidth;
+		document.getElementById('3darea').height = window.innerHeight;
+		document.getElementById('menu').style.height = window.innerHeight + 'px';
+	}
+	
+	document.addEventListener("DOMContentLoaded", loaded, false);
+	
+	</script>
+	
+	<style type="text/css">
+		div.mainTitle {
+			font-weight:bold; margin-left:-24px; font-size:40px; text-decoration:underline;
+		}
+		div.subTitle {
+			font-weight:bold; font-size:22px; margin-left:-25px; text-decoration:underline; text-align:left; margin-left:6px;
+		}
+		div.content{
+			cursor:pointer; font-size:16px; width:210px; height:24px; line-height:24px; left:0px; background-color:#444; margin-top:6px; -moz-border-radius:4px; text-align:center;
+		}
+	</style>
+
+</head>
+<body style="margin:0px; padding:0px; overflow:hidden;">
+
+	<!--start menu overlay
+	<div id="menu" style="font-family:helvetica; color:#fff;  text-align:center; width:225px; height:100px; position:absolute; left:0px; top:0px; pointer-events:none; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	-->
+		
+	<div id="menu" onmouseover="func=0;" onmouseout="func=1;" style="font-family:helvetica; color:#fff; text-align:center; width:234px; height:100px; overflow:scroll; position:absolute; left:0px; top:0px; background-color:#000; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	
+		<div class="mainTitle">Airway</div>
+		
+		<div class="subTitle" style="margin-top:26px;">Anatomical Layers</div>
+		
+			<div class="content"><span onclick="opy('Arachnoid Mater (L)','one');" id="one" class="contentText" style="color:#fff;">Arachnoid Mater (L)</span></div>
+			<div class="content"><span onclick="opy('Arachnoid Mater (R)','two');" id="two" class="contentText" style="color:#fff;">Arachnoid Mater (R)</span></div>
+			<div class="content"><span onclick="opy('Arteries (L)','three');" id="three" class="contentText" style="color:#fff;">Arteries (L)</span></div>
+			<div class="content"><span onclick="opy('Arteries (R)','four');" id="four" class="contentText" style="color:#fff;">Arteries (R)</span></div>
+			<div class="content"><span onclick="opy('Cerebellum (L)','five');" id="five" class="contentText" style="color:#fff;">Cerebellum (L)</span></div>
+			<div class="content"><span onclick="opy('Cerebellum (R)','six');" id="six" class="contentText" style="color:#fff;">Cerebellum (R)</span></div>
+			<div class="content"><span onclick="opy('Cerebral Spinal Fluid (L)','seven');" id="seven" class="contentText" style="color:#fff;">Cerebral Spinal Fluid (L)</span></div>
+			<div class="content"><span onclick="opy('Cerebral Spinal Fluid (R)','eight');" id="eight" class="contentText" style="color:#fff;">Cerebral Spinal Fluid (R)</span></div>
+			<div class="content"><span onclick="opy('Dura Mater (L)','nine');" id="nine" class="contentText" style="color:#fff;">Dura Mater (L)</span></div>
+			<div class="content"><span onclick="opy('Dura Mater (R)','ten');" id="ten" class="contentText" style="color:#fff;">Dura Mater (R)</span></div>
+			<div class="content"><span onclick="opy('Frontal Lobe (L)','eleven');" id="eleven" class="contentText" style="color:#fff;">Frontal Lobe (L)</span></div>
+			<div class="content"><span onclick="opy('Frontal Lobe (R)','twelve');" id="twelve" class="contentText" style="color:#fff;">Frontal Lobe (R)</span></div>
+			<div class="content"><span onclick="opy('Insula (L)','thirteen');" id="thirteen" class="contentText" style="color:#fff;">Insula (L)</span></div>
+			<div class="content"><span onclick="opy('Insula (R)','fourteen');" id="fourteen" class="contentText" style="color:#fff;">Insula (R)</span></div>
+			<div class="content"><span onclick="opy('Limbic Body (L)','fifteen');" id="fifteen" class="contentText" style="color:#fff;">Limbic Body (L)</span></div>
+			<div class="content"><span onclick="opy('Limbic Body (R)','sixteen');" id="sixteen" class="contentText" style="color:#fff;">Limbic Body (R)</span></div>
+			<div class="content"><span onclick="opy('Medulla Oblongata (L)','seventeen');" id="seventeen" class="contentText" style="color:#fff;">Medulla Oblongata (L)</span></div>
+			<div class="content"><span onclick="opy('Medulla Oblongata (R)','eighteen');" id="eighteen" class="contentText" style="color:#fff;">Medulla Oblongata (R)</span></div>
+			<div class="content"><span onclick="opy('Occipital Lobe (L)','nineteen');" id="nineteen" class="contentText" style="color:#fff;">Occipital Lobe (L)</span></div>
+			<div class="content"><span onclick="opy('Occipital Lobe (R)','twenty');" id="twenty" class="contentText" style="color:#fff;">Occipital Lobe (R)</span></div>
+			<div class="content"><span onclick="opy('Parietal Lobe (L)','twentyone');" id="twentyone" class="contentText" style="color:#fff;">Parietal Lobe (L)</span></div>
+			<div class="content"><span onclick="opy('Parietal Lobe (R)','twentytwo');" id="twentytwo" class="contentText" style="color:#fff;">Parietal Lobe (R)</span></div>
+			<div class="content"><span onclick="opy('Pia Mater (L)','twentythree');" id="twentythree" class="contentText" style="color:#fff;">Pia Mater (L)</span></div>
+			<div class="content"><span onclick="opy('Pia Mater (R)','twentyfour');" id="twentyfour" class="contentText" style="color:#fff;">Pia Mater (R)</span></div>
+			<div class="content"><span onclick="opy('Pituitary Gland (L)','twentyfive');" id="twentyfive" class="contentText" style="color:#fff;">Pituitary Gland (L)</span></div>
+			<div class="content"><span onclick="opy('Pituitary Gland (R)','twentysix');" id="twentysix" class="contentText" style="color:#fff;">Pituitary Gland (R)</span></div>
+			<div class="content"><span onclick="opy('Pons (L)','twentyeight');" id="twentyeight" class="contentText" style="color:#fff;">Pons (L)</span></div>
+			<div class="content"><span onclick="opy('Pons (R)','twentynine');" id="twentynine" class="contentText" style="color:#fff;">Pons (R)</span></div>
+			<div class="content"><span onclick="opy('Temporal Lobe (L)','thirty');" id="thirty" class="contentText" style="color:#fff;">Temporal Lobe (L)</span></div>
+			<div class="content"><span onclick="opy('Temporal Lobe (R)','thirtyone');" id="thirtyone" class="contentText" style="color:#fff;">Temporal Lobe (R)</span></div>
+			<div class="content"><span onclick="opy('Veins (L)','thirtytwo');" id="thirtytwo" class="contentText" style="color:#fff;">Veins (L)</span></div>
+			<div class="content"><span onclick="opy('Veins (R)','thirtythree');" id="thirtythree" class="contentText" style="color:#fff;">Veins (R)</span></div>
+		
+	</div>
+	<!--end menu overlay-->
+	
+	<canvas id="3darea" width="1680" height="900" style="background-color:#000"></canvas>
+
+	<script type="text/javascript">
+	<!--
+		var engine = startCopperLichtFromFile('3darea', 'copperlichtdata/brainz.ccbjs');	
+		var itme = null;
+		
+		engine.OnLoadingComplete = function()
+		{
+			scene = engine.getScene();
+		}
+		
+		function tgg(eleId)
+		{
+			if (document.getElementById(eleId).style.color == 'rgb(255, 255, 255)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(85, 85, 85)';
+				return;
+			}
+			
+			if (document.getElementById(eleId).style.color == 'rgb(85, 85, 85)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(255, 255, 255)';
+				return;
+			}
+		}
+	
+		function opy(nom,eleId)
+		{
+			itme = scene.getSceneNodeFromName(nom);
+			
+			if (document.getElementById(eleId).style.color == 'rgb(255, 255, 255)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(85, 85, 85)';
+				itme.Visible = false;
+				return;
+			}
+			
+			if (document.getElementById(eleId).style.color == 'rgb(85, 85, 85)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(255, 255, 255)';
+				itme.Visible = true;
+				return;
+			}
+		}
+	-->
+	</script>
+
+</body>
+</html>

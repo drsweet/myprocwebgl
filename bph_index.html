@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Benign Prostatic Hyperplasia, MyProcedure TM - CREST, University of Minnesota Department of Urology</title>
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="author" content="Vincent Rotty, Daniel Burke, Center for Research in Education and Simulation Technologies" />
+<meta name="description" content="web-based male anatomy explorer" />
+<meta name="keywords" content="male anatomy, webgl, web-based anatomy, anatomy, bph, radical prostatectomy, rpt, ptt, urology, department of urology, prostate cancer, cancer, male urology,  benign prostatic hyperplasia" />
+<meta http-equiv="pragma" content="no-cache">
+
+<link rel="shortcut icon" href="http://www1.umn.edu/twincities/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="lib/css/stylesheet.css" />
+
+<script type="text/javascript" src="assets/copperlichtdata/copperlicht.js"></script>
+<script type="text/javascript" src="lib/js/male110811.js"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21292988-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  
+</script>
+</head>
+
+<p id="bonhov1" style="position:absolute; pointer-events:none; z-index:-100; visibility:hidden;"></p>
+<p id="bonhov2" style="position:absolute; pointer-events:none; z-index:-100; visibility:hidden;"></p>
+<p id="newhov1" style="position:absolute; pointer-events:none; z-index:-100; visibility:hidden;"></p>
+<p id="newhov2" style="position:absolute; pointer-events:none; z-index:-100; visibility:hidden;"></p>
+
+<body id="body1" onmousemove="sliddd();" onmousedown="closehand();" onmouseup="openhand();" style="overflow:hidden;">
+
+	<div id="shield" style="opacity:0.0; filter:alpha(opacity=0); visibility:hidden;" >
+
+        <div id="addControls">
+		
+			<div id="addContText" onclick="addControls();" style="cursor:pointer; position:absolute; width:150px; height:30px; line-height:30px; text-align:center; bottom:35px; margin-left:3px; background-color:#7a0019; font-family:helvetica; font-weight:bold; font-size:16px; -moz-border-radius:8px; -webkit-border-radius:8px; border:3px solid #ffcc33; color:#ffcc33; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none;">Show Controls</div>
+			
+			<div id="addCont" style="visibility:hidden;">
+				<div style="cursor:default; position:absolute; margin-left:170px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Zoom
+				</div>
+				<div onclick="dFOVb(0.08);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:174px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="dFOVb(-0.08);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:224px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+				
+				<div style="cursor:default; position:absolute; margin-left:283px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Rotate
+				</div>
+				<div onclick="rotate(-15);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:287px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="rotate(15);"style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:337px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+
+				<div style="cursor:default; position:absolute; margin-left:396px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Pan Up/Down
+				</div>
+				<div onclick="panud(-2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:400px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="panud(2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:450px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+				
+				<div style="cursor:default; position:absolute; margin-left:509px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Pan Left/Right
+				</div>
+				<div onclick="panlr(2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:513px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="panlr(-2);"style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:563px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+
+			</div>
+		
+		</div>
+
+		<div id="movement" style="position:absolute; top:50px; left:10px; width:457px; height:420px; -moz-user-select:none; font-family:helvetica; z-index:10000">
+
+			<div id="slider" onmousedown="gate=1;" style="cursor:move; background-image:url('android-element-drop-shadow.png'); background-repeat:repeat-x; background-color:#999; position:absolute; margin-left:0px; margin-top:0px; height:30px; line-height:30px; width:450px; z-index:1; font-weight:bold; font-family:helvetica; text-align:center; color:#fff; text-shadow:1px 1px 1px #000;">
+				Additional Information
+				<div style="position:absolute; margin-left:422px; height:26px; width:26px; -moz-border-radius:3px; -webkit-border-radius:3px; -o-border-radius:3px; margin-top:-28px; cursor:pointer; background-color:#222;" onclick="addin();">
+					<img id="addinCOLL" src="assets/img/scene/collIcon.png" style="position:absolute; margin-top:3px; margin-left:-10px;" height="20px;" width="20px" />
+				</div>
+			</div>
+			
+			<div id="content" style="position:absolute; height:400px; width:450px; margin-left:0px; margin-top:30px; background-color:#7a0019; background-image:url('android-element-drop-shadow.png'); background-repeat:repeat-x;">
+
+				<a ondblclick="newimagewindow();"><img id="imgs1" src="assets/img/procedural_scene/1_normal_prostate.png" style="float:right; cursor:pointer; z-index:1; height:256px; width:256px; border:2px solid black; margin-right:10px; margin-left:10px; margin-top:10px;" /></a>
+
+				<p id="content1" style="font-size:24px; margin-left:10px; margin-top:10px; font-weight:bold; color:#ffcc33; text-decoration:underline; text-shadow:1px 1px 1px #000;">Welcome to MyProcedure</p>
+				<p style="font-size:16px; color:#ffcc33;margin-left:10px; line-height:17px;"><span id="content2">Additional informational will appear here as you progress through the steps of the procedure.<BR><BR>Drag this window around the screen and use the button in the top right of this window to collape and expand it.</span><BR><BR>(Double-click image to enlarge)
+				<BR><BR><span id="complicationsid" style="visiblity:hidden; pointer-events:auto; cursor:pointer; text-decoration:underline;" onclick="document.getElementById('complications').style.visibility = 'visible';">Click to View Post-Procedure Complications</span></p>
+				
+			</div>
+
+			<img id="addinShad" src="assets/img/scene/add-in-big-shadow.png" style="margin-left:-19px; margin-top:-19px; opacity:0.5; pointer-events:none;"/>
+		</div>
+    
+		<div class="bottomrunnertext">
+			<div style="left:4px;"><a href="http://www.crest.umn.edu" target="_blank" >CREST<sup style="font-size:10px;">TM</sup></a> | <a href="http://www.simportal.umn.edu" target="_blank" >SimPORTAL<sup style="font-size:10px;">TM</sup></a> | <a href="https://www.mmf.umn.edu/give/?giveto=1825" target="_blank">Donate</a> | <a href="http://www.myprocedure.umn.edu/feedback" target="_blank">Feedback</a> | <span onclick="helptext();" style="cursor:pointer;" >Help</span> | <a href="javascript:window.close();">Close Window</a></div>
+		</div>
+		<span style="position:absolute; right:4px; bottom:1px; line-height:28px; z-index:11;font-family:helvetica; font-size:16px; color:#ffcc33; font-weight:bold; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;">MY PROCEDURE<sup style="font-size:10px;">TM</sup></span>
+		
+		<img src="assets/img/scene/mouseControls.png" height="39px" width="271px" style="position:absolute; right:2px; bottom:30px; z-index:11; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; pointer-events:none;" />
+		<img src="assets/img/scene/top-runnersb.png" width="960px" height="67px" style="position:absolute; top:0px; left:0px; z-index:9; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+		<img id="imgX" src="assets/img/scene/top-runnert.png" width="1917px" height="71px" style="position:absolute; top:0px; left:960px; z-index:9; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+		<img id="imgZ" src="assets/img/scene/bottom-runner.png" width="2880px" height="47px" style="position:absolute; bottom:0px; left:0px; z-index:9; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;" />
+		
+		<div class="bphrunnertext" style="pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">
+			<span style="position:absolute; left:9px; top:4px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">1.&nbsp;PROPER&nbsp;URINE FLOW</span>
+				<img id="prehov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:1px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="prehov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:1px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+			<span style="position:absolute; left:168px; top:4px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">2.&nbsp;BPH&nbsp;ENLARGED PROSTATE</span>
+				<img id="penhov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:161px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="penhov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:161px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+			<span style="position:absolute; left:332px; top:12px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">3.&nbsp;INSERT&nbsp;SCOPE</span>
+				<img id="teshov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:321px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="teshov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:321px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+			<div style="position:absolute; left:517px; top:4px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">4.&nbsp;TOOL SELECTION</div>
+				<img id="orghov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:481px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="orghov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:481px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<div id="lolt" style="visibility:hidden; z-index:1000; pointer-events:none;">
+					<div id="lolt1" style="pointer-events:none; height:28px; width:159px; position:absolute; margin-left:481px; margin-top:50px; z-index:11; text-align:center; line-height:28px; background-image:url('assets/copperlichtdata/menu-select-laser-or-loop.png'); -moz-user-select:none; -webkit-user-select:none;">CHOOSE&nbsp;LASER</div>
+					<div id="lolt2" style="pointer-events:none; height:28px; width:159px; position:absolute; margin-left:481px; margin-top:78px; z-index:11; text-align:center; line-height:28px; background-image:url('assets/copperlichtdata/menu-select-laser-or-loop.png'); -moz-user-select:none; -webkit-user-select:none;">CHOOSE&nbsp;LOOP</div>
+				</div>
+			<div style="position:absolute; left:681px; top:12px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">5.&nbsp;RESULT</div>
+				<img id="mushov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:640px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="mushov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:640px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+			<span style="position:absolute; left:832px; top:4px; z-index:11; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;">6.&nbsp;POST PROCEDURE</span>
+				<img id="lighov1" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:800px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+				<img id="lighov2" src="assets/img/scene/menu-select-bph.png" height="49px" width="159px" style="position:absolute; left:800px; top:0px; z-index:10; visibility:hidden; pointer-events:none; -moz-user-select:none; -webkit-user-select:none;"/>
+		</div>
+			
+		<div id="help" style="visibility:hidden">
+			<img src="assets/img/scene/help-menu-close.png" width="89" height="89" style="position:absolute; z-index:13; margin-top:-167px; margin-left:300px; top:50%; left:50%; cursor:pointer;" onclick="helptext();"/>
+			<img src="assets/img/scene//help-screen.png" width="960" height="384" style="position:absolute; z-index:12; margin-top:-192px; margin-left:-480px; top:50%; left:50%; pointer-events:none;"/>
+			<div class="helptext">
+				<p><li>Navigate through the different steps of BPH by clicking the steps at the top of the screen.</li>
+				<li>Click and drag around the screen with the left mouse button to rotate the model.</li>
+				<li>Click and drag around the screen with the right mouse button to pan the model.</li>
+				<li>Zoom in and out using the middle mouse button.</li>
+				<li>Questions or suggestions related to this product may be directed to <a href="mailto:rotty002@umn.edu" style="text-decoration:underline; color:#FFF">Vincent Rotty</a></li></p>
+			</div>
+		</div>
+		
+		<div id="complications" style="-o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; visibility:hidden; cursor:default; z-index:10005;">
+			<img src="assets/img/scene/bphcomp.png" height="716px" width="1102px" style="position:absolute; left:50%; top:50%; margin-left:-551px; margin-top:-358px; z-index:10006; pointer-events:none;" />
+			<img src="assets/img/scene/help-menu-close.png" height="89px" width="89px" style="position:absolute; left:50%; top:50%; margin-left:-526px; margin-top:-333px; z-index:10007; cursor:pointer; pointer-events:auto;" onclick="document.getElementById('complications').style.visibility = 'hidden';"/>
+			<span style="color:#ffcc33; font-family:helvetica; font-size:30px; font-weight:bold; text-shadow:1px 1px 1px #000; position:absolute; left:50%; margin-left:40px; top:50%; margin-top:-282px; z-index:10008; pointer-events:none;">Post-Procedure Complications</span>
+			<span style="margin-left:-405px; margin-top:-253px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:18px; font-family:helvetica; font-weight:bold; z-index:10008; pointer-events:none;">Bladder Dysfunction</span>
+				<span style="pointer-events:none; margin-left:-410px; margin-top:-227px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:12px; font-family:helvetica; font-weight:bold; z-index:10009; width:195px;">Bladder over-activity is commonly associated with, and secondary to, BPH and can be made temporarily worse by corrective procedures. Post procedure dysfunction typically resolves in a matter of weeks.</span>
+				<img src="assets/img/scene/diaPopOut.png" width="209px" height="122px" style="pointer-events:none; margin-left:-425px; margin-top:-230px; position:absolute; z-index:16; top:50%; left:50%;"/>
+			<span style="pointer-events:none; margin-left:-445px; margin-top:-43px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:18px; font-family:helvetica; font-weight:bold; z-index:10008;">Blood Clot Retention</span>
+				<span style="pointer-events:none; margin-left:-459px; margin-top:-16px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:12px; font-family:helvetica; font-weight:bold; z-index:10009; width:190px;">Too much strenuous activity may lead to rebleeding and clot formation. Clots tend to pass with urination. Otherwise this may cause urinary blockage which can be fixed by an additional procedure.</span>
+				<img src="assets/img/scene/diaPopOut.png" width="209px" height="122px" style="pointer-events:none; margin-left: -474px; margin-top:-19px; position:absolute; z-index:16; top:50%; left:50%;"/>
+			<span style="margin-left:-290px; margin-top:148px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:18px; font-family:helvetica; font-weight:bold; z-index:10008;">Bladder Neck Scar</span>
+				<span style="pointer-events:none; margin-left:-300px; margin-top:175px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:12px; font-family:helvetica; font-weight:bold; z-index:10009; width:190px;">In less than 1% of all cases, a scar can form on the bladder neck, requiring a small procedure to clear the area.</span>
+				<img src="assets/img/scene/diaPopOut.png" width="209px" height="122px" style="pointer-events:none; margin-left:-315px; margin-top:172px; position:absolute; z-index:16; top:50%; left:50%;"/>
+			<span style="pointer-events:none; margin-left:213px; margin-top:148px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:18px; font-family:helvetica; font-weight:bold; z-index:10008;">Retrograde Ejaculation</span>
+				<span style="pointer-events:none; margin-left:217px; margin-top:175px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:12px; font-family:helvetica; font-weight:bold; z-index:10009; width:190px;">When ejaculating, semen may move backwards into the bladder. This will expel later with urine.</span>
+				<img src="assets/img/scene/diaPopOut.png" width="209px" height="122px" style="pointer-events:none; margin-left:202px; margin-top:172px; position:absolute; z-index:16; top:50%; left:50%;"/>
+			<span style="pointer-events:none; margin-left:273px; margin-top:-122px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:18px; font-family:helvetica; font-weight:bold; z-index:10008;">Continence</span>
+				<span style="pointer-events:none; margin-left:267px; margin-top:-95px; left:50%; top:50%; position:absolute; color:#ffcc33; text-shadow:1px 1px 1px #000; font-size:12px; font-family:helvetica; font-weight:bold; z-index:10009; width:190px;">In less than 1% of all cases, patient may develop a urine leakage when coughing or sneezing.</span>
+				<img src="assets/img/scene/diaPopOut.png" width="209px" height="122px" style="pointer-events:none; margin-left:252px; margin-top:-98px; position:absolute; z-index:16; top:50%; left:50%;"/>
+		</div>
+		
+	</div>
+	<span style="position:absolute; margin-left:100000px;"><div id="box"></div><div id="infotext1"></div></span>
+	<div id="tacou" style="height:400px; width:800px; margin-left:-400px; margin-top:-200px; position:absolute; left:50%; top:50%; z-index:100; overflow:hidden; background-image:url('assets/img/scene/alpha.png');">
+
+		<div style="height:100px; width:800px; margin-left:0px; margin-top:96px; text-align:center; font-family:helvetica; font-weight:bold; font-size:14pt; text-shadow:1px 1px 1px #000; color:#FFcc33; z-index:101">
+			<div style="width:230px; height:100px; margin-left:25px; margin-top:0px;">Click and drag with the left mouse button to rotate the model</div>
+			<div style="width:230px; height:100px; margin-left:288px; margin-top:-100px;">Use the scroll wheel to make the model appear larger or smaller</div>
+			<div style="width:230px; height:100px; margin-left:550px; margin-top:-100px;">Click and drag with the right mouse button to pan the canvas</div>
+		</div>
+		
+		<div style="height:185px; width:700px; background-color:#fff; z-index:102; margin-left:50px; margin-top:-10px; font-size:10pt; font-family:helvetica; color:#000; overflow:auto; padding-bottom:0px;">
+			<p style="text-decoration:underline; font-weight:bold; font-size:16pt; margin-top:0px;">Terms and Conditions of use</p>
+			<p style="font-weight:bold; font-size:12pt;">PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY BEFORE USING THIS SITE.</p>
+			<p>By using this site, you signify your assent to these Terms and Conditions. If you do not agree to all of these Terms and Conditions of use, do not use this site.</p>
+			<p>All site users represent and warrant that they are at least 18 years of age and that they possess the legal rights and ability to agree to these Terms and Conditions of use and to use this site in accordance with these Terms and Conditions of Use.</p>
+			<p>The University of Minnesota Medical School may revise and update these Terms and Conditions at any time. Your continued usage of the MyProcedureTM website will mean you accept those changes.</p>
+			<p style="font-weight:bold;">THIS SITE DOES NOT PROVIDE MEDICAL ADVICE</p>
+			<p>The contents of the MyProcedureTM website, such as text, graphics, images, information obtained from the University of Minnesota Medical School’s licensors, and other material contained on the MyProcedureTM website are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on the MyProcedureTM!</p>
+			<p>If you think you may have a medical emergency, call your doctor or 911 immediately. The University of Minnesota Medical School does not recommend or endorse any specific tests, physicians, products, procedures, opinions, or other information that may be mentioned on the MyProcedureTM website. Reliance on any information provided by the University of Minnesota Medical School, University of Minnesota Medical School employees, others appearing on the Web-Access-Models website at the invitation of the University of Minnesota Medical School, or other visitors to the MyProcedureTM website is solely at your own risk.</p>
+			<p>The MyProcedureTM website may contain health- or medical-related materials that are sexually explicit. If you find these materials offensive, you may not want to use our site.</p>
+			<p style="font-weight:bold;">USE OF CONTENT</p>
+			<p>The University of Minnesota Medical School does not authorizes the download or local storage of the material contained on the MyProcedureTM website.</p> 
+			<p>The content is protected by copyright under both United States and foreign laws. Title to the Content remains with the University of Minnesota Medical School or its licensors. Any use of the content not expressly permitted by these Terms and Conditions is a breach of these Terms and Conditions and may violate copyright, trademark, and other laws. Content and features are subject to change or termination without notice in the editorial discretion of the University of Minnesota Medical School. All rights not expressly granted herein are reserved to the University of Minnesota Medical School and its licensors.</p>
+			<p>If you violate any of these Terms and Conditions, your permission to use the content automatically terminates and you must immediately destroy any copies you have made of any portion of the content. These actions are in addition to and not in lieu or limitation of any other legal right we remedy we may have. Further, we shall not be liable to you or any third party for any such termination or discontinuance.</p>
+			<p style="font-weight:bold;">LIABILITY OF THE UNIVERSITY OF MINNESOTA MEDICAL SCHOOL AND ITS LISCENSORS</p>
+			<p>The use of the MyProcedureTM website and content is at your own risk.</p>
+			<p>When using the MyProcedureTM website, information will be transmitted over a medium that may be beyond the control and jurisdiction of the University of Minnesota Medical School and its suppliers. Accordingly, the University of Minnesota Medical School assumes no liability for or relating to the delay, failure, interruption, or corruption of any data or other information transmitted in connection with use of the MyProcedureTM website.</p>
+			<p>THE MyProcedureTM  WEBSITE AND THE CONTENT ARE PROVIDED ON AN “AS-IS” BASIS. THIS MEANS THAT THE INFORMATION CONTAINED ON OR PROVIDED THROUGH THIS SERVICE IN INTENDED FOR GENERAL CONSUMER UNDERSTANDING AND EDUCATION. ANY ACCESS TO THIS SITE IS VOLUNTARY. WE WILL REGARD ALL ACCESS AS VOLUNTARY AND AT THE SOLE RISK OF THE USER.</p> 
+			<p>THE UNIVERSITY OF MINNESOTA MEDICAL SCHOOL, ITS LICENSORS, AND ITS SUPPLIERS, TO THE FULLEST EXTENT PERMITTED BY LAW, DISCLAIM ALL WARRANTIES, EITHER EXPRESS OR IMPLIED, STATUTORY OR OTHERWISE, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT OF THIRD PARTIES' RIGHTS, AND FITNESS FOR PARTICULAR PURPOSE.</p>
+			<p>Without limiting the foregoing, the University of Minnesota Medical School, its licensors, and its suppliers make no representations or warranties about the following:</p>
+				<ul><li>The accuracy, reliability, completeness, currentness, or timeliness of the content, software, text, graphics, links, or communications provided on or through the use of the MyProcedureTM website or University of Minnesota Medical School.</li>
+				<li>The satisfaction of any government regulations requiring disclosure of information on prescription drug products or the approval or compliance of any software tools with regard to the content contained on the MyProcedureTM website.</li></ul>
+			<p>We do not operate, control, supply, endorse, warrant, or guarantee any information, products, services, or merchandise that is not clearly identified as information products, services, or merchandise supplied by us. We reserve the right at any time and from time to time to modify or discontinue, temporarily or permanently, this site, or any part thereof, with or without notice.</p>
+			<p>In no event shall the University of Minnesota Medical School, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website be liable for any damages (including, without limitation, incidental and consequential damages, personal injury/wrongful death, lost profits, or damages resulting from lost data or business interruption) resulting from the use of or inability to use the MyProcedureTM website or the content, whether based on warranty, contract, tort, or any other legal theory, and whether or not the University of Minnesota Medical School, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website are advised of the possibility of such damages. The University of Minnesota, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website are not liable for any personal injury, including death, caused by your use or misuse of the MyProcedureTM website or its content. The sole and exclusive remedy dissatisfaction with the services of the MyProcedureTM website will be to stop using the website. Any claims arising in connection with your use of the MyProcedureTM website or any of its content must be brought within one (1) year of the date of the event giving rise to such action occurred. Remedies under these Terms and Conditions are exclusive and are limited to those expressly provided for in these Terms and Conditions.</p>
+			<p style="font-weight:bold;">INDEMNITY</p>
+			<p>You agree to defend, indemnify, and hold the University of Minnesota Medical School, its Regents, officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from, your violation of these Terms and Conditions.</p>
+			<p style="font-weight:bold;">GENERAL</p>
+			<p>We do not guarantee continuous, uninterrupted or secure access to our services, and operation of this site may be interfered with by numerous factors outside of our control. You agree that these Terms and Conditions of Use and all incorporated agreements between us and you may be automatically assigned by us, in our sole discretion, to a third party in the event of a merger, acquisition, or liquidation.</p>
+			<p>Our failure to act with respect to a breach by you or other of these Terms and Conditions of Use does not waive our right to act with respect to subsequent or similar breaches. These Terms and Conditions of Use set forth the entire understanding and agreement between us and any site user with respect to the site, its uses, and services.</p>
+			<p>The University of Minnesota Medical School is based in Minneapolis, Minnesota in the United States of America with principal offices residing in Minneapolis, MN. The University of Minnesota Medical School makes no claims that the University of Minnesota Medical School or any website within the University of Minnesota Medical School network and the content are appropriate or may be downloaded outside of the United States. Access to the content may not be legal by certain persons or in certain countries. If you access the University of Minnesota Medical School network from outside the United States, you do so at your own risk and are responsible for compliance with the laws of your jurisdiction.</p>
+			<p style="font-weight:bold;">GOVERNING LAW AND JURISDICTION</p>
+			<p>Because of the designated purpose of this site and the services it provides, you agree that the MyProcedureTM website does not constitute a service that targets any one community, user group, business, or industry. Because the site is designed for educational purposes, you also agree that it does not constitute “doing business” in any specific jurisdiction or soliciting business for us or any of our affiliated companies, subsidiaries, or our parents company or establishing “minimum contacts” with any jurisdiction outside of the state of Minnesota.</p>
+			<p>You expressly agree that this Agreement is entered into in the State of Minnesota, United States of America, and is performed fully within the state of Minnesota and is governed by and shall be construed in all respects under the laws of the State of Minnesota, exclusive of its choice of law or conflict of laws provisions. Exclusive jurisdiction for any dispute arising under this Agreement with the University of Minnesota Medical School, or in any way relating to your use of the MyProcedureTM website, resides in the courts of Hennepin Country in the State of Minnesota and you further agree and expressly consent to the exercise of personal jurisdiction in the courts of the State of Minnesota in connection with any such dispute including any claim involving the University of Minnesota Medical School, or its affiliates, subsidiaries, employees, contractors, officers, directors, telecommunication providers, and content providers, and you waive any jurisdictional, venue, or inconvenient forum objects in such courts.</p>
+			<p>If any provision of these Terms and Conditions is found to be invalid by any court having competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms and Conditions, which shall remain in full force and effect. No waiver of any of these Terms and Conditions shall be deemed a further or continuing waiver of such term or condition or any other term or condition.</p>
+			<p style="font-weight:bold;">COPYRIGHT AND TRADEMARKS</p>
+			<p>The marks MyProcedureTM trademarks and service marks of the Regents of the University of Minnesota.</p>
+			<p>The materials on the site are copyrights by us and/or other applicable rights holders.</p>
+			<p style="font-weight:bold;">COMPLETE AGREEMENT</p>
+			<p>Except as expressly provided in a particular "legal notice" on the MyProcedureTM website, these Terms and Conditions and the University of Minnesota Privacy Policy constitute the entire agreement between you and the University of Minnesota Medical School with respect to the use of the MyProcedureTM website. This Agreement may not be modified, in whole or in part, except as described elsewhere in this Agreement. Anything contained on the MyProcedureTM website inconsistent with or conflicting with the terms of this Agreement shall be superseded by the terms of this Agreement.</p>
+			<p>©2011. The Regents of the University of Minnesota. All Rights Reserved.</p>
+		</div>
+		
+		<BR><button onclick="document.getElementById('tacou').style.visibility='hidden'; startMapLoading('assets/copperlichtdata/bph_scene.ccbjs',960,'Anatomy','http://www.myprocedure.umn.edu/bphLite.html');" type="button" style="position:absolute; margin-left:330px; margin-top:-17px; z-index:102;">I Accept</button>
+		<a href="http://www.myprocedure.umn.edu" style="text-decoration:none;"><button type="button" style="position:absolute; margin-left:410px; margin-top:-17px; z-index:102;">Cancel</button></a>
+	
+	</div>
+	
+	<div align="center" style="pointer-events:auto; color:#fff;">
+		<canvas id="3darea" width="1024" height="638" style="background-color:#FFF; z-index:-1; cursor:url(img/handOPEN.cur), auto; position:absolute; top:0px; left:0px; opacity:0.0; filter:alpha(opacity=0); visibility:hidden;"></canvas>
+		<div id="cl_loadinglabel" style="visibility:hidden; position:absolute; left:50%; top:50%; margin-left:-188px; margin-top:-88px; height:174px; width:376px; cursor:wait; z-index:2; opacity:0.0; filter:alpha(opacity=0);" align="center">
+			<img src="assets/copperlichtdata/loading2.gif" height="174px" width="376px"/> 
+		</div>
+
+		<div id="cl_nowebgl" style="position:absolute; left:50%; margin-left:-512px; display:none; pointer-events:auto; -o-user-select:all; -moz-user-select:all; -khtml-user-select:all; -webkit-user-select:all; z-index:4"> 
+			<img src="assets/img/scene/sorryBG.png" height="264px" style="z-index:2; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+			<p style="color:#000; font-size:18pt; text-align:center; z-index:2; font-family:helvetica;">Sorry, your browser does not appear to support WebGL (or it is disabled).
+			<br>A WebGL-enabled browser is required to view the MyProcedure<sup>TM</sup> models.
+				<ul style="text-align:left; line-height:20px; list-style-type:circle; color:#000; padding:5px; font-size:15pt; text-align:left; pointer-events:auto; font-family:helvetica; width:700px;">
+					<li>If you are using Internet Explorer, Google has created a plugin that will give you access to all of the rich web-features you've been missing! Download it <a href="http://www.google.com/chromeframe/eula.html" target="_blank">here</a>. To learn more about this new product called Google Chrome Frame, click <a href="http://code.google.com/chrome/chromeframe/" target="_blank">here</a>.</li><BR>
+					<li><a href="http://www.mozilla.org/en-US/firefox/fx/">Mozilla Firefox</a> and <a href="http://www.google.com/chrome">Google Chrome</a> are currently the only browsers supporting WebGL-enabled features in their stable versions. If you are not using the Google Chrome frame plugin for Internet Explorer, please make sure that you are using one of these browsers.</li><BR>
+					<li>WebGL is a new technology and is not currently compatible with all graphics cards. For more help with enabling WebGL on your browser, <a href="http://www.google.com/support/chrome/bin/answer.py?answer=1220892" target="_blank">click here</a> for Chrome users and <a href="https://support.mozilla.com/en-US/kb/how-do-i-upgrade-my-graphics-drivers" target="_blank">click here</a> for Firefox users.</li><BR>
+					<li>If you believe you are seeing this message in error, refresh the page and try loading the scene again.</li><BR>
+					<li>We apologize for the inconvenience. We really promise that MyProcedure<sup>TM</sup> is worth the time and wait!</li><BR>
+				</ul>
+			</p>
+		</div> 
+
+	<script type="text/javascript">
+			
+        g=1;
+			
+			function s1() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Healthy Prostate';
+				document.getElementById('content2').innerHTML = 'A healthy prostate will allow urine to flow freely from the bladder and expel from the body.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/1_normal_prostate.png";
+				g=1;
+
+			}
+			function s2() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Enlarged Prostate';
+				document.getElementById('content2').innerHTML = 'Benign Prostatic Hyperplasia (BPH) causes the walls of the prostate to enlarge, obstructing or completely blocking the flow of urine from the bladder.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/2_enlarged_prostate.png";
+				g=2;
+			}
+			function s3() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Scope Inside Urethra';
+				document.getElementById('content2').innerHTML = 'A rigid scope can be securely inserted far into the urethra by a physician, allowing for the use of a camera and various tools. The Scope will also allow for the inward and outward flow of saline to the urinary system during surgery, to maintain a fluid environment.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/3_scope_in.png";
+				g=3;
+			}
+			function s4() {
+				document.getElementById('lolt').style.visibility = 'visible';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Laser or Loop';
+				document.getElementById('content2').innerHTML = 'A popular treatment option is Transurethral Resection of the Prostate (TURP). Two common methods for surgically reducing the size of the prostate are Resection using a wire loop, and Laser Vaporization, using a high power laser beam deployed from a glass fiber. Outcomes for TURP are typically excellent for 80-90% of patients.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/3_scope_in.png";
+				g=4;
+			}
+			function s5() {
+                document.getElementById('lolt').style.visibility = 'visible';
+				document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Laser and Scope';
+				document.getElementById('content2').innerHTML = 'A side-fire fiber is extended into the prostate, where it emits a high power laser beam. The laser vaporizes tissue on target, emitting a cloud of bubbles.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/4_fiber_in.png";
+				g=5;
+			}
+			function s6() {
+                document.getElementById('lolt').style.visibility = 'hidden';
+				document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Vaporization of Prostate';
+				document.getElementById('content2').innerHTML = 'The surgeon will vaporize tissue down to the prostate capsule creating a large enough space to return easy urine flow to the patient. With laser prostatectomy, there is often very little bleeding during or after procedure.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/6_ablation.png";
+				g=6;
+			}
+			function s7() {
+                document.getElementById('lolt').style.visibility = 'visible';
+				document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Loop and Scope';
+				document.getElementById('content2').innerHTML = 'A wire loop tool is extended into the prostate, where it is heated with an electrical current to cut through prostatic flesh. The wire cuts easily through tissue, discarding pieces into the bladder to be expelled later.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/5_loop_in.png";
+				g=7;
+			}
+			function s8() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Resection of Prostate';
+				document.getElementById('content2').innerHTML = 'The surgeon will resect tissue down to the prostate capsule creating a large enough space to return easy urine flow to the patient.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/7_resection.png";
+				g=8;
+			}
+            function s9() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+                document.getElementById('complicationsid').style.visibility = 'hidden';
+				document.getElementById('content1').innerHTML = 'Post Procedure';
+				document.getElementById('content2').innerHTML = 'After surgery the patient is fitted with a large lumen catheter to irrigate and drain the bladder. Recovery time is often very brief. The resulting prostate now offers a much wider urethra to the bladder. Proper urine flow is restored to the patient, and when performed properly, erectile functions remain intact.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/8_resected_prostate.png";
+				g=9;
+			}
+			function s10() {
+				document.getElementById('lolt').style.visibility = 'hidden';
+				if (document.getElementById('content').style.visibility != 'hidden') {document.getElementById('complicationsid').style.visibility = 'visible';}
+				document.getElementById('content1').innerHTML = 'Healed Prostate';
+				document.getElementById('content2').innerHTML = 'After the procedure, a urinary catheter is left in overnight to allow for irrigation and bladder rest.  Typically it is removed the following morning and may cause some spasms of the bladder while inserted. After the catheter has been removed, the patient should notice immediate results. Within a few months the remaining prostate tissue will be healed.'
+				document.getElementById("imgs1").src="assets/img/procedural_scene/9_healed_prostate.png";
+				g=10;
+			}
+            
+			function newimagewindow()
+			{
+				if (g==1) winurl='assets/1_normal_prostate.html';
+				if (g==2) winurl='assets/2_enlarged_prostate.html';
+				if (g==3) winurl='assets/3_scope_in.html';
+				if (g==4) winurl='assets/3_scope_in.html';
+				if (g==5) winurl='assets/4_fiber_in.html';
+				if (g==6) winurl='assets/6_ablation.html';
+				if (g==7) winurl='assets/5_loop_in.html';
+				if (g==8) winurl='assets/7_resection.html';
+                if (g==9) winurl='assets/8_resected_prostate.html';
+                if (g==10) winurl='assets/9_healed_prostate.html';
+				
+				
+				window.open(winurl,'_blank','directories=no, resizeable=no, toolbar=no, titlebar=no, status=no, scrollbars=no, menubar=no, location=no, directories=no, channelmode=no, height=512, width=512, fullscreen=no','');	
+			}
+
+	</script>
+	</div>
+</body>
+</html>

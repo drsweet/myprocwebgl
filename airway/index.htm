@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<script type="text/javascript" src="copperlichtdata/copperlicht.js"></script>
+	
+	<title>Airway - MyProcedure, University of Minnesota Medical School</title>
+	
+	<script type="text/javascript">
+	func=1;
+	
+	function dFOV(shift) {
+	
+		if (func == 1)
+		{
+		var cam = engine.getScene().getActiveCamera();
+		var cfov = cam.getFov()
+		mfov = cfov + shift;
+		//bounds to keep the scene from being zoomed in either too close or too far away (zoom lock)
+		if (mfov < 0.2666370964050287) {mfov = 0.2666370964050287;}
+		if (mfov > 1.7366370964050291) {mfov = 1.7366370964050291;}
+		cam.setFov(mfov);
+		}
+	}
+		
+	function handle(delta) {
+		var s = delta + ": ";
+		if (delta < 0)
+			dFOV(0.05);
+		else
+			dFOV(-0.05);
+	}
+				 
+	function wheel(event){
+		var delta = 0;
+		if (!event) event = window.event;
+		if (event.wheelDelta) {
+			delta = event.wheelDelta/120; 
+			if (window.opera) delta = -delta;
+		} 
+		else if (event.detail) {
+			delta = -event.detail/3;
+		}
+		if (delta)
+			handle(delta);
+	}
+	
+	function loaded() 
+	{
+		/* Initialization code. */
+		if (window.addEventListener)
+			{window.addEventListener('DOMMouseScroll', wheel, false);}
+		window.onmousewheel = document.onmousewheel = wheel;
+		
+		document.getElementById('3darea').width = window.innerWidth;
+		document.getElementById('3darea').height = window.innerHeight;
+		document.getElementById('menu').style.height = window.innerHeight + 'px';
+	}
+	
+	document.addEventListener("DOMContentLoaded", loaded, false);
+	
+	</script>
+	
+	<style type="text/css">
+		div.mainTitle {
+			font-weight:bold; margin-left:-24px; font-size:40px; text-decoration:underline;
+		}
+		div.subTitle {
+			font-weight:bold; font-size:22px; margin-left:-25px; text-decoration:underline; text-align:left; margin-left:6px;
+		}
+		div.content{
+			cursor:pointer; font-size:16px; width:210px; height:24px; line-height:24px; left:0px; background-color:#444; margin-top:6px; -moz-border-radius:4px; text-align:center;
+		}
+	</style>
+
+</head>
+<body style="margin:0px; padding:0px; overflow:hidden;">
+
+	<!--start menu overlay
+	<div id="menu" style="font-family:helvetica; color:#fff;  text-align:center; width:225px; height:100px; position:absolute; left:0px; top:0px; pointer-events:none; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	-->
+		
+	<div id="menu" onmouseover="func=0;" onmouseout="func=1;" style="font-family:helvetica; color:#fff; text-align:center; width:234px; height:100px; overflow:scroll; position:absolute; left:0px; top:0px; background-color:#000; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	
+		<div class="mainTitle">Airway</div>
+		
+		<div class="subTitle" style="margin-top:26px;">Anatomical Layers</div>
+		
+			<div class="content"><span onclick="opy('adenoid_L','one');" id="one" class="contentText" style="color:#fff;">Adenoid (L)</span></div>
+			<div class="content"><span onclick="opy('adenoid_R','two');" id="two" class="contentText" style="color:#fff;">Adenoid (R)</span></div>
+			<div class="content"><span onclick="opy('arytenoid_cartilage_L','three');" id="three" class="contentText" style="color:#fff;">Arytenoid Cartilage (L)</span></div>
+			<div class="content"><span onclick="opy('arytenoid_cartilage_R','four');" id="four" class="contentText" style="color:#fff;">Arytenoid Cartilage (R)</span></div>
+			<div class="content"><span onclick="opy('concha_L','five');" id="five" class="contentText" style="color:#fff;">Concha (L)</span></div>
+			<div class="content"><span onclick="opy('concha_R','six');" id="six" class="contentText" style="color:#fff;">Concha (R)</span></div>
+			<div class="content"><span onclick="opy('cricoid_cartilage_L','seven');" id="seven" class="contentText" style="color:#fff;">Cricoid Cartilage (L)</span></div>
+			<div class="content"><span onclick="opy('cricoid_cartilage_R','eight');" id="eight" class="contentText" style="color:#fff;">Cricoid Cartilage (R)</span></div>
+			<div class="content"><span onclick="opy('cricothyroid_membrane_L','nine');" id="nine" class="contentText" style="color:#fff;">Crocithyroid Membrane (L)</span></div>
+			<div class="content"><span onclick="opy('cricothyroid_membrane_R','ten');" id="ten" class="contentText" style="color:#fff;">Cricothyroid Membrane (R)</span></div>
+			<div class="content"><span onclick="opy('epiglottis_L','eleven');" id="eleven" class="contentText" style="color:#fff;">Epiglottis (L)</span></div>
+			<div class="content"><span onclick="opy('epiglottis_R','twelve');" id="twelve" class="contentText" style="color:#fff;">Epiglottis (R)</span></div>
+			<div class="content"><span onclick="opy('ethmoidal_sinus_L','thirteen');" id="thirteen" class="contentText" style="color:#fff;">Ethmoidal Sinus (L)</span></div>
+			<div class="content"><span onclick="opy('ethmoidal_sinus_R','fourteen');" id="fourteen" class="contentText" style="color:#fff;">Ethmoidal Sinus (R)</span></div>
+			<div class="content"><span onclick="opy('frontal_sinus_L','fifteen');" id="fifteen" class="contentText" style="color:#fff;">Frontal Sinus (L)</span></div>
+			<div class="content"><span onclick="opy('frontal_sinus_R','sixteen');" id="sixteen" class="contentText" style="color:#fff;">Frontal Sinus (R)</span></div>
+			<div class="content"><span onclick="opy('larengeal_mucosa_L','seventeen');" id="seventeen" class="contentText" style="color:#fff;">Larengeal Mucosa (L)</span></div>
+			<div class="content"><span onclick="opy('larengeal_mucosa_R','eighteen');" id="eighteen" class="contentText" style="color:#fff;">Larengeal Mucosa (R)</span></div>
+			<div class="content"><span onclick="opy('maxillary_sinus_L','nineteen');" id="nineteen" class="contentText" style="color:#fff;">Maxillary Sinus (L)</span></div>
+			<div class="content"><span onclick="opy('maxillary_sinus_R','twenty');" id="twenty" class="contentText" style="color:#fff;">Maxillary Sinus (R)</span></div>
+			<div class="content"><span onclick="opy('nasal_mucosa_L','twentyone');" id="twentyone" class="contentText" style="color:#fff;">Nasal Mucosa (L)</span></div>
+			<div class="content"><span onclick="opy('nasal_mucosa_R','twentytwo');" id="twentytwo" class="contentText" style="color:#fff;">Nasal Mucosa (R)</span></div>
+			<div class="content"><span onclick="opy('oral_mucosa_L','twentythree');" id="twentythree" class="contentText" style="color:#fff;">Oral Mucosa (L)</span></div>
+			<div class="content"><span onclick="opy('oral_mucosa_R','twentyfour');" id="twentyfour" class="contentText" style="color:#fff;">Oral Mucosa (R)</span></div>
+			<div class="content"><span onclick="opy('palate_L','twentyfive');" id="twentyfive" class="contentText" style="color:#fff;">Palate (L)</span></div>
+			<div class="content"><span onclick="opy('palate_R','twentysix');" id="twentysix" class="contentText" style="color:#fff;">Palate (R)</span></div>
+			<div class="content"><span onclick="opy('septum','twentyseven');" id="twentyseven" class="contentText" style="color:#fff;">Septum</span></div>
+			<div class="content"><span onclick="opy('sphenoidal_sinus_L','twentyeight');" id="twentyeight" class="contentText" style="color:#fff;">Sphenoidal Sinus (L)</span></div>
+			<div class="content"><span onclick="opy('sphenoidal_sinus_R','twentynine');" id="twentynine" class="contentText" style="color:#fff;">Sphenoidal Sinus (R)</span></div>
+			<div class="content"><span onclick="opy('thyroid_cartilage_L','thirty');" id="thirty" class="contentText" style="color:#fff;">Thyroid Cartilage (L)</span></div>
+			<div class="content"><span onclick="opy('thyroid_cartilage_R','thirtyone');" id="thirtyone" class="contentText" style="color:#fff;">Thyroid Cartilage (R)</span></div>
+			<div class="content"><span onclick="opy('tongue_L','thirtytwo');" id="thirtytwo" class="contentText" style="color:#fff;">Tongue (L)</span></div>
+			<div class="content"><span onclick="opy('tongue_R','thirtythree');" id="thirtythree" class="contentText" style="color:#fff;">Tongue (R)</span></div>
+			<div class="content"><span onclick="opy('tonsil_L','thirtyfour');" id="thirtyfour" class="contentText" style="color:#fff;">Tonsil(L)</span></div>
+			<div class="content"><span onclick="opy('tonsil_R','thirtyfive');" id="thirtyfive" class="contentText" style="color:#fff;">Tonsil (R)</span></div>
+			<div class="content"><span onclick="opy('uvula_L','thirtysix');" id="thirtysix" class="contentText" style="color:#fff;">Uvula (L)</span></div>
+			<div class="content"><span onclick="opy('uvula_R','thirtyseven');" id="thirtyseven" class="contentText" style="color:#fff;">Uvula (R)</span></div>
+			<div class="content"><span onclick="opy('vocalis_muscle_L','thirtyeight');" id="thirtyeight" class="contentText" style="color:#fff;">Vocalis Muscle (L)</span></div>
+			<div class="content"><span onclick="opy('vocalis_muscle_R','thirtynine');" id="thirtynine" class="contentText" style="color:#fff;">Vocalis Muscle (R)</span></div>
+		
+	</div>
+	<!--end menu overlay-->
+	
+	<canvas id="3darea" width="1680" height="900" style="background-color:#000"></canvas>
+
+	<script type="text/javascript">
+	<!--
+		var engine = startCopperLichtFromFile('3darea', 'copperlichtdata/airway_high.ccbjs');	
+		var itme = null;
+		
+		engine.OnLoadingComplete = function()
+		{
+			scene = engine.getScene();
+		}
+		
+		function tgg(eleId)
+		{
+			if (document.getElementById(eleId).style.color == 'rgb(255, 255, 255)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(85, 85, 85)';
+				return;
+			}
+			
+			if (document.getElementById(eleId).style.color == 'rgb(85, 85, 85)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(255, 255, 255)';
+				return;
+			}
+		}
+	
+		function opy(nom,eleId)
+		{
+			itme = scene.getSceneNodeFromName(nom);
+			
+			if (document.getElementById(eleId).style.color == 'rgb(255, 255, 255)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(85, 85, 85)';
+				itme.Visible = false;
+				return;
+			}
+			
+			if (document.getElementById(eleId).style.color == 'rgb(85, 85, 85)')
+			{
+				document.getElementById(eleId).style.color = 'rgb(255, 255, 255)';
+				itme.Visible = true;
+				return;
+			}
+		}
+	-->
+	</script>
+
+</body>
+</html>

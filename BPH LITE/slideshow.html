@@ -1,0 +1,156 @@
+<html>
+
+<head>
+
+<script type="text/javascript">
+
+point=1;
+
+function fadeIn(objId,opacity) {
+	
+	if (point==1)
+	{
+		document.getElementById('render').src="BPH LITE/1_normal_prostate.png";	
+		document.getElementById('thetitle').innerHTML = "Proper Urine Flow";
+		document.getElementById('thedescription').innerHTML = "A healthy prostate will allow urine to flow freely from the bladder and expel from the body.";
+	}
+	if (point==2)
+	{
+		document.getElementById('render').src="BPH LITE/2_enlarged_prostate.png";	
+		document.getElementById('thetitle').innerHTML = "Enlarged Prostate";
+		document.getElementById('thedescription').innerHTML = "Benign Porstatic Hyperplasia (BPH) causes the walls of the prostate to enlarge, obstructing or completely blocking the flow of urine from the bladder.";
+	}
+	if (point==3)
+	{
+		document.getElementById('render').src="BPH LITE/3_scope_in.png";
+		document.getElementById('thetitle').innerHTML = "Insert Scope";
+		document.getElementById('thedescription').innerHTML = "A rigid scope can be securely inserted far into the urethra by a physician, allowing for the use of a camera and various tools. The scope will also allow for the inward and outward flow of salie to the urinary system during surgery, to maintain a fluid environment.";
+	}
+	if (point==4)
+	{
+		document.getElementById('render').src="BPH LITE/3_scope_in.png";
+		document.getElementById('thetitle').innerHTML = "Laser or Loop";
+		document.getElementById('thedescription').innerHTML = "A popular treatment option is Transurethral Resection of the Prostate (TURP). Two common methods for surgically reducing the size of the prostate are resection using a wire loop, and laser ablation using a higher power laser beam deployed from a glass fiber. Outcomes for TURP are typically excellent for 80-90% of patients.";
+	}
+	if (point==5)
+	{
+		document.getElementById('render').src="BPH LITE/8_resected_prostate.png";
+		document.getElementById('thetitle').innerHTML = "Post Procedure Result";
+		document.getElementById('thedescription').innerHTML = "After surgery the patient is fitted with a large lumen catheter to irrigate and drain the bladder. Recovery time is often very brief. The resulting prostate now offers a much wider urethra to the bladder. Proper urine flow is restored to the patient, and when performed properly, erectile functions remain intact.";
+	}
+	if (point==6)
+	{
+		document.getElementById('render').src="BPH LITE/9_healed_prostate.png";
+		document.getElementById('thetitle').innerHTML = "Healthy Prostate";
+		document.getElementById('thedescription').innerHTML = "After the procedure, a urinary catheter is left in overnight to allow for irrigation and bladder rest. Typically is is removed the following morning and may cause some spasms of the baldder while inserted. After the catherter has been removed, the patient should notice immediate results. Within a few months the remaining prostate tissue will be healed.";
+	}
+	
+	
+	/*
+	if (point==4)
+	{
+		document.getElementById('render').src="BPH LITE/4_fiber_in.png";
+		document.getElementById('thetitle').innerHTML = "Laser and Scope";
+		document.getElementById('thedescription').innerHTML = "A side-fire fiber is extended into the prostate, where it emits a high power laser beam. The laser vaporizes tissue on target, emitting a cloud of bubbles.";
+	}
+	if (point==5)
+	{
+		document.getElementById('render').src="BPH LITE/5_loop_in.png";
+		document.getElementById('thetitle').innerHTML = "Loop and Scope";
+		document.getElementById('thedescription').innerHTML = "A wire loop tool is extended into the prostate where it is heated with an electrical current to cut through prostatic flesh. The wire cuts easily through tissue, discarding pieces into the bladder to be expelled later.";
+	}
+	if (point==6)
+	{
+		document.getElementById('render').src="BPH LITE/6_ablation.png";
+		document.getElementById('thetitle').innerHTML = "Ablation of Prostate";
+		document.getElementById('thedescription').innerHTML = " The surgeon will ablate tissue down to the prostate capsule creating a large enough space to return easy urine flow to the patient. With laser prostatectomy, there is often very little bleeding during or after the procedure.";
+	}
+	if (point==7)
+	{
+		document.getElementById('render').src="BPH LITE/7_resection.png";
+		document.getElementById('thetitle').innerHTML = "Resection of Prostate";
+		document.getElementById('thedescription').innerHTML = "The surgeon will resect tissue down to the prostate capsule creating a large enough space to return easy urine flow to the patient.";
+	}
+	*/
+	
+	if (document.getElementById) {
+		obj = document.getElementById(objId);
+		if (opacity <= 100) {
+			setOpacity(obj, opacity);
+			opacity += 10;
+			window.setTimeout("fadeIn('"+objId+"',"+opacity+")", 25);
+		}
+	}
+}
+
+function fadeOut(objId,opacity) {
+	if (document.getElementById) {
+		obj = document.getElementById(objId);
+		if (opacity >= 0) {
+			setOpacity(obj, opacity);
+			opacity -= 10;
+			window.setTimeout("fadeOut('"+objId+"',"+opacity+")", 25);
+		}
+		if (opacity == 0)
+		{
+		document.getElementById('theimage').src = path;	
+		setTimeout("fadeIn('thecontent',0)",200);
+		}
+	}
+}
+
+function setOpacity(obj, opacity) {
+	opacity = (opacity == 100)?99.999:opacity;
+	// IE/Win
+	obj.style.filter = "alpha(opacity:"+opacity+")";
+	// Safari<1.2, Konqueror
+	obj.style.KHTMLOpacity = opacity/100;
+	// Older Mozilla and Firefox
+	obj.style.MozOpacity = opacity/100;
+	// Safari 1.2, newer Firefox and Mozilla, CSS3
+	obj.style.opacity = opacity/100;
+}
+
+function slideshow(direction)
+{
+
+point = point + direction;
+if (point < 1) {point=1; return};
+if (point > 6) {point=6; return};
+path = 'BPH LITE/' + point + '.png';
+fadeOut('thecontent',100);
+	
+}
+</script>
+
+</head>
+
+<body style="margin:0px; padding:100px; background-color:#ccc;">
+
+<div style="height:480px; width:854px; background-color:#000; position:absolute; left:50%; margin-left:-427px; border:1px solid white;">
+
+	<span id="thecontent">
+
+		<img id="theimage" src="BPH LITE/1.png" width="854"/>
+		
+		<img src="BPH LITE/liteoverlay.png" style="position:absolute; margin-left:-854px;"/>
+	
+		<div style="width:580px; height:80px; position:absolute; bottom:0px; overflow:auto; font-weight:bold; font-family:helvetica; font-size:14px; overflow:auto; padding-left:5px; padding-top:3px; color:#ffcc33; text-shadow: 1px 1px 1px #000;">	
+		
+			<span id="thetitle">Proper Urine Flow</span>
+			<BR><span id="thedescription" style="font-weight:normal; position:absolute; margin-top:4px;">A healthy prostate will allow urine to flow freely from the bladder and expel from the body.</span>
+			
+		</div>
+		
+		<img id="render" src="BPH LITE/1_normal_prostate.png" height="256px" style="position:absolute; margin-top:-260px; margin-left:598px; z-index:5;"/>
+	
+	</span>
+	
+	<div id="nextstep" onclick="slideshow(1)" style="height:100px; width:100px; background-color:#ffcc33; position:absolute; margin-left:-110px; top:50%; margin-top:-100px; cursor:pointer;">NEXT STEP</div>
+	<div onclick="slideshow(-1)" style="height:100px; width:100px; background-color:#7a0019; position:absolute; margin-left:-110px; top:50%; margin-top:0px; cursor:pointer;">PREVIOUS STEP</div>
+
+</div>
+
+</body>
+
+</html>

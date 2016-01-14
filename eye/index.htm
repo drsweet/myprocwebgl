@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<script type="text/javascript" src="copperlichtdata/copperlicht.js"></script>
+	
+	<title>Eyeball - MyProcedure, University of Minnesota Medical School</title>
+	
+	<script type="text/javascript">
+	var tgc;
+	
+	function tgg(eleId)
+	{
+		if (document.getElementById(eleId).style.color == 'rgb(255, 255, 255)')
+		{
+			document.getElementById(eleId).style.color = 'rgb(85, 85, 85)';
+			return;
+		}
+		
+		if (document.getElementById(eleId).style.color == 'rgb(85, 85, 85)')
+		{
+			document.getElementById(eleId).style.color = 'rgb(255, 255, 255)';
+			return;
+		}
+	}
+			
+	function dFOV(shift) {
+		var cam = clap.getScene().getActiveCamera();
+		var cfov = cam.getFov()
+		mfov = cfov + shift;
+		//bounds to keep the scene from being zoomed in either too close or too far away (zoom lock)
+		if (mfov < 0.2666370964050287) {mfov = 0.2666370964050287;}
+		if (mfov > 1.7366370964050291) {mfov = 1.7366370964050291;}
+		cam.setFov(mfov);
+	}
+		
+	function handle(delta) {
+		var s = delta + ": ";
+		if (delta < 0)
+			dFOV(0.05);
+		else
+			dFOV(-0.05);
+	}
+				 
+	function wheel(event){
+		var delta = 0;
+		if (!event) event = window.event;
+		if (event.wheelDelta) {
+			delta = event.wheelDelta/120; 
+			if (window.opera) delta = -delta;
+		} 
+		else if (event.detail) {
+			delta = -event.detail/3;
+		}
+		if (delta)
+			handle(delta);
+	}
+	
+	function loaded() 
+	{
+		/* Initialization code. */
+		if (window.addEventListener)
+			{window.addEventListener('DOMMouseScroll', wheel, false);}
+		window.onmousewheel = document.onmousewheel = wheel;
+		
+		document.getElementById('3darea').width = window.innerWidth;
+		document.getElementById('3darea').height = window.innerHeight;
+		document.getElementById('menu').style.height = window.innerHeight + 'px';
+	}
+	
+	document.addEventListener("DOMContentLoaded", loaded, false);
+	
+	</script>
+	
+	<style type="text/css">
+		div.mainTitle {
+			font-weight:bold; margin-left:-24px; font-size:40px; text-decoration:underline;
+		}
+		div.subTitle {
+			font-weight:bold; font-size:22px; margin-left:-25px; text-decoration:underline; text-align:left; margin-left:6px;
+		}
+		div.content{
+			font-size:16px; width:200px; height:24px; line-height:24px; left:0px; background-color:#444; margin-top:6px; -moz-border-radius:4px;
+		}
+		span.contentText{
+			text-align:left; margin-left:-80px; position:absolute;
+		}
+	</style>
+
+</head>
+<body style="margin:0px; padding:0px; overflow:hidden;">
+
+	<!--start menu overlay
+	<div id="menu" style="font-family:helvetica; color:#fff;  text-align:center; width:225px; height:100px; position:absolute; left:0px; top:0px; pointer-events:none; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	-->
+		
+	<div id="menu" style="font-family:helvetica; color:#fff; text-align:center; width:225px; height:100px; position:absolute; left:0px; top:0px; pointer-events:none; background-image:url('ivir_eyeBG.png'); background-repeat:repeat-y;">
+	
+		<div class="mainTitle">Eyeball</div>
+		
+		<div class="subTitle" style="margin-top:46px;">Top Layers</div>
+		
+			<div class="content"><span id="aq_hu_t" class="contentText" style="color:#fff;">Aqueous Humour</span></div>
+			<div class="content"><span id="ch_t" class="contentText" style="color:#fff;">Choroid</span></div>
+			<div class="content"><span id="ci_t" class="contentText" style="color:#fff;">Ciliary Body</span></div>
+			<div class="content"><span id="con_t" class="contentText" style="color:#fff;">Conjunctiva</span></div>
+			<div class="content"><span id="cor_t" class="contentText" style="color:#fff;">Cornea</span></div>
+			<div class="content"><span id="ir_t" class="contentText" style="color:#fff;">Iris</span></div>
+			<div class="content"><span id="le_t" class="contentText" style="color:#fff;">Lens</span></div>
+			<div class="content"><span id="re_t" class="contentText" style="color:#fff;">Retina</span></div>
+			<div class="content"><span id="sc_t" class="contentText" style="color:#fff;">Sclera</span></div>
+			<div class="content"><span id="vi_t" class="contentText" style="color:#fff;">Vitreous Humous</span></div>
+			<div class="content"><span id="zo_t" class="contentText" style="color:#fff;">Zonular Fibers</span></div>
+		
+		<div class="subTitle" style="margin-top:23px;">Bottom Layers</div>
+		
+			<div class="content"><span id="aq_hu_b" class="contentText" style="color:#fff;">Aqueous Humour</span></div>
+			<div class="content"><span id="ch_b" class="contentText" style="color:#fff;">Choroid</span></div>
+			<div class="content"><span id="ci_b" class="contentText" style="color:#fff;">Ciliary Body</span></div>
+			<div class="content"><span id="con_b" class="contentText" style="color:#fff;">Conjunctiva</span></div>
+			<div class="content"><span id="cor_b" class="contentText" style="color:#fff;">Cornea</span></div>
+			<div class="content"><span id="ir_b" class="contentText" style="color:#fff;">Iris</span></div>
+			<div class="content"><span id="le_b" class="contentText" style="color:#fff;">Lens</span></div>
+			<div class="content"><span id="re_b" class="contentText" style="color:#fff;">Retina</span></div>
+			<div class="content"><span id="sc_b" class="contentText" style="color:#fff;">Sclera</span></div>
+			<div class="content"><span id="vi_b" class="contentText" style="color:#fff;">Vitreous Humous</span></div>
+			<div class="content"><span id="zo_b" class="contentText" style="color:#fff;">Zonular Fibers</span></div>
+		
+	</div>
+	<!--end menu overlay-->
+	
+	<canvas id="3darea" width="1680" height="900" style="background-color:#000"></canvas>
+
+	<script type="text/javascript">
+	<!--
+		clap = startCopperLichtFromFile('3darea', 'copperlichtdata/eye_cut.ccbjs');		
+	-->
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- University of Minnesota Web template:  v5.101021 -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="author" content="Vincent Rotty, Daniel Burke, Center for Research in Education and Simulation Technologies" />
+<meta name="description" content="MyProcedure is a series of web-based, 3D interactive tools developed for patient education." />
+<meta name="keywords" content="male anatomy, webgl, web-based anatomy, anatomy, bph, radical prostatectomy, rpt, ptt, urology, department of urology, prostate cancer, cancer, male urology,  benign prostatic hyperplasia" />
+<meta http-equiv="pragma" content="no-cache">
+
+<title>MyProcedure - University of Minnesota</title>
+
+<link rel="shortcut icon" href="http://www1.umn.edu/twincities/favicon.ico" type="image/x-icon" />
+
+
+<link href="lib/css/reset.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="lib/css/template.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="lib/css/optional.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="lib/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<script type="text/javascript" src="lib/js/searchfield.js"></script>
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+<!-- Add your unit's style sheet(s) here -->
+	<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21292988-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+	</script>
+
+	<style>
+
+img {cursor:pointer;}
+
+.gallery {
+	overflow:auto;
+	cursor:default;
+}
+
+</style>
+
+<script type="text/javascript">
+
+var n=0;
+var timer=0;
+sett=1;
+nocookie=1;
+
+function fadeIn(objId,opacity) {
+	if (document.getElementById) {
+		obj = document.getElementById(objId);
+		if (opacity <= 100) {
+			setOpacity(obj, opacity);
+			opacity += 5;
+			window.setTimeout("fadeIn('"+objId+"',"+opacity+")", 15);
+		}
+	}
+	timer=timer+1;
+}
+
+function fadeOut(objId,opacity) {
+	if (document.getElementById) {
+		obj = document.getElementById(objId);
+		if (opacity >= 0) {
+			setOpacity(obj, opacity);
+			opacity -= 5;
+			window.setTimeout("fadeOut('"+objId+"',"+opacity+")", 15);
+		}
+	}
+}
+
+function setOpacity(obj, opacity) {
+	opacity = (opacity == 100)?99.999:opacity;
+	// IE/Win
+	obj.style.filter = "alpha(opacity:"+opacity+")";
+	// Safari<1.2, Konqueror
+	obj.style.KHTMLOpacity = opacity/100;
+	// Older Mozilla and Firefox
+	obj.style.MozOpacity = opacity/100;
+	// Safari 1.2, newer Firefox and Mozilla, CSS3
+	obj.style.opacity = opacity/100;
+}
+
+function redirecturl(n) {
+	if (n==0) {var url="http://www.myprocedure.umn.edu/male_index.html";}
+	if (n==1) {var url="http://www.myprocedure.umn.edu/female_index.html";}
+	if (n==2) {var url="http://www.myprocedure.umn.edu/bph_index.html";}
+	if (n==3) {var url="http://www.myprocedure.umn.edu/ptt_index.html";}
+	wOpen = window.open(url,'','menubar=no, left=0, top=0, status=no, titlebar=no, location=no, directories=no, toolbar=no', false);
+	wOpen.resizeTo(screen.availWidth, screen.availHeight);
+}
+
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+  {
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
+    }
+  }
+}
+
+function hidehelp() 
+{
+    document.getElementById('black').style.visibility = 'hidden';	
+    document.getElementById('help').style.visibility='hidden';
+    document.getElementById('tbody').style.overflow='auto';
+
+    if (document.getElementById('hideall').checked == true)
+    {
+        setCookie('nomore','true',365);
+    }
+    if (document.getElementById('hideall').checked == false)
+    {
+        setCookie('nomore','false',365);
+    }
+
+}
+
+function black() 
+{
+    var username=getCookie("nomore");
+    
+    if (username == null) username='false';
+    
+    if (username == 'false')
+    {
+        setTimeout("fadeIn('help-text', 0)",500);
+        fadeIn('help-close', 0);
+        fadeIn('help-screen', 0);
+        document.getElementById('black').style.opacity = 0.75;
+        document.getElementById('black').style.filter = "alpha(opacity:"+75+")";	
+        document.getElementById('black').style.width = (window.innerWidth) + 'px';
+        document.getElementById('black').style.height = (window.innerHeight + 100) + 'px';
+        document.getElementById('black').style.marginLeft = (-window.innerWidth/2 + 470) + 'px';
+        document.getElementById('tbody').style.overflow='hidden';
+    }
+    
+    if (username == 'true')
+    {
+        document.getElementById('black').style.visibility = 'hidden';	
+        document.getElementById('help').style.visibility='hidden';
+        document.getElementById('tbody').style.overflow='auto';
+    }
+}
+
+</script>
+<!-- STYLE SHEETS TO FIX INTERNET EXPLORER INCONSISTENCIES -->
+
+<!--[if IE 6]>
+<style type="text/css" media="screen">
+@import url("lib/css/IE6.css");
+</style>
+<![endif]-->
+<!--[if IE 7]>
+<style type="text/css" media="screen">
+@import url("lib/css/IE7.css");
+</style>
+<![endif]-->
+
+</head>
+
+<div class="center" style="margin-left:-480px; position:absolute; left:50%; width:960px;">
+<!--BEGIN WORDMARK AND UNIT IDENTIFICATION FOR PRINT -->
+<!--Use this code along with the print.css to retain the University's wordmark on your printed Web pages and to identify your unit -->
+<div class="leftprint">
+<img src="assets/img/smMwdmk.gif" alt="University of Minnesota" width="216" height="55" hspace="10" align="left" />
+</div>
+<div class="rightprint"><strong>University of Minnesota</strong><br />
+http://www.umn.edu/<br />
+612-625-5000<br />
+</div>
+<!--END WORDMARK AND UNIT IDENTIFICATION FOR PRINT -->
+
+
+<!-- * Skip Links * -->
+  <p id="skipLinks">
+  	<a href="#main_nav">Main navigation</a> | 
+    <a href="#maincontent">Main content</a>
+  </p>
+
+<div id="header">
+
+ <!-- BEGNIN CAMPUS LINKS -->
+    <div id="campus_links">
+        <p>Campuses: </p>
+        <ul>
+          <li><a href="http://www.umn.edu">Twin Cities</a></li>
+          <li><a href="http://www.crk.umn.edu">Crookston</a></li>
+          <li><a href="http://www.d.umn.edu">Duluth</a></li>
+          <li><a href="http://www.morris.umn.edu">Morris</a></li>
+          <li><a href="http://www.r.umn.edu">Rochester</a></li>
+          <li><a href="http://www.umn.edu/campuses.php">Other Locations</a></li>
+        </ul>
+    </div>
+    <!-- END CAMPUS LINKS -->
+        
+      
+    <!-- * BEGIN TEMPLATE HEADER (MAROON BAR)* -->
+    <div id="headerUofM">
+        
+      <div id="logo_uofm"><a href="http://www.umn.edu/">Go to the U of M home page</a></div>
+        
+
+ <!--BEGIN search div-->
+      <div id="search_area">
+         <div id="search_nav"><a href="http://onestop.umn.edu/" id="btn_onestop">OneStop</a> 
+         <a href="https://www.myu.umn.edu/" id="btn_myu">myU</a></div>
+         
+<div class="search"> 
+<form action="http://google.umn.edu/search" method="get" name="gsearch" id="gsearch" title="Search U of M Web sites">
+<label for="search_field">Search U of M Web sites</label>
+<input type="text" id="search_field" name="q" value="Search U of M Web sites"  title="Search text"  />   
+<input class="search_btn" type="image" src="assets/img/search_button.gif" alt="Submit Search" value="Search" />
+<input name="client" value="searchumn" type="hidden" />
+<input name="proxystylesheet" value="searchumn" type="hidden" />
+<input name="output" value="xml_no_dtd" type="hidden" />
+</form>  
+</div> 
+         
+</div></div>
+<!-- end "search" area -->
+     
+</div>
+<!-- End search div -->
+
+<!--END UofM TEMPLATE HEADER-->
+
+<body id="tbody" onload="setTimeout('black()', 500);">
+
+<div id="help">
+
+	<img id="help-close" src="help-menu-close.png" width="89" height="89" style="position:absolute; z-index:1002; user-select:none; margin-top:60px; margin-left:320px; left:50%; opacity:0.0; filter:alpha(opacity=0);" onclick="hidehelp();"/>
+	<img id="black" src="black.png" width="100%" height="100%" style="position:absolute; left:0; top:0px; z-index:1000; cursor:default; opacity:0.0; filter:alpha(opacity=0);"/>
+	<img id="help-screen" src="help-screen.png" width="960" height="384" style="position:absolute; z-index:1001; user-select:none; margin-top:50px; margin-left:-480px; left:50%; pointer-events:none; opacity:0.0; filter:alpha(opacity=0);"/>
+	
+	<div id="help-text" class="helptext" style="position:absolute; z-index:1002; left:50%; margin-top:150px; margin-left: -420px; font-family:helvetica; font-weight:bold; font-size:16pt; line-height:25px; width:860px; color:#fff; opacity:0.0; filter:alpha(opacity=0);">
+		<p><li>MyProcedure makes use of WebGL technology. At this time not all graphics cards are supported by the WebGL standard. You can verify that your web browser is capable of viewing WebGL content by following this link <a style="color:#ffcc33; text-decoration:underline; cursor:pointer;" href="http://get.webgl.org/" target="_blank">http://get.webgl.org/</a>.</li><BR>
+		<li>For more information about WebGL, visit this <a href="http://www.khronos.org/webgl/" style="color:#ffcc33;" target="_blank" >link</a>.</li>
+		<a onclick="hidehelp();" style="position:absolute; margin-left:-120px; left:50%; margin-top:35px; color:#ffcc33; text-decoration:underline; cursor:pointer;">Click here to proceed</a></p>
+        <div style="position:absolute; text-align:center; vertical-align:middle; margin-top:45px; margin-left:272px;font-weight:normal; font-size:12px;"><BR><input type="checkbox" name="hideall" id="hideall" value=""><span style="margin-left:6px;">Check this box to hide this message permanently</span></input></div>
+	</div>
+</div>
+	
+<div style="pointer-events:auto; margin-top:10px;" align="center">
+
+	<a href="http://www.myprocedure.umn.edu"><img src="mp_logo.png" alt="The MyProcedure website is a free tool developed by CREST and SimPORTAL featuring custom anatomical models and animations for patient education" style="margin-left:-220px;" title="MyProcedure" /></a><br>
+
+	<div style="z-index:100; background-image:url('Untitled-6.png'); width:400px; height:200px; z-index:100; position:absolute; margin-left:627px; margin-top:-158px;"><div style="width:360px; position:absolute; height:200px; margin-top:60px; color:#fff; margin-left:20px; font-size:14px; font-weight:bold; line-height:20px; text-shadow:1px 1px 1px #000;">A Free Tool Developed For You by <a href="http://www.crest.umn.edu" style="color:#ffcc33; text-decoration:none;">CREST</a><sup>TM</sup><BR>and <a href="http://www.simportal.umn.edu" style="color:#ffcc33; text-decoration:none;">SimPORTAL</a><sup>TM</sup>
+	<br><a href="https://www.mmf.umn.edu/give/?giveto=1825" style="color:#ffcc33; text-decoration:none;">Make a Donation</a> | <a href="http://myprocedure.umn.edu/feedback.html" style="color:#ffcc33; text-decoration:none;">Send Us Feedback</a>
+    <BR><p style="margin-top:4px;"><a href="http://www.myprocedure.umn.edu/about" style="color:#ffcc33; text-decoration:none;">About MyProcedure<sup>™</sup></a>
+
+<a href="https://www.facebook.com/myprocedure" target="_blank"><img src="facebook_button-1.png" height="32px" style="position:absolute; margin-left:60px; margin-top:3px;" /></a>
+
+</p></div></div>
+
+</div>
+<!--
+<img src="galleryBorder.png" style="position:absolute; margin-top:0px; z-index:99; pointer-events:none; left:50%; margin-left:-505px;"></img>
+-->
+<div style="width:990px; height:376px; position:absolute; margin-top:0px; margin-left:-495px; left:50%; overflow:scroll; background-color:#fff;">
+
+<div style="position:absolute; height:240px; width:294px; z-index:1; margin-top:18px;" align="center">
+	<span style="font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #fff;">Male Anatomy</span>
+	<a onclick="redirecturl(0)"><img src="assets/img/homepage/maleimg.png" width="274" height="321" alt="Click here to load the male anatomy model" title="Male Anatomy Explorer" /></a>
+</div>
+<div style="position:absolute; margin-left:300px; height:240px; width:294px; z-index:1; margin-top:18px;" align="center">
+	<span style="font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #fff;">Benign Prostatic Hyperplasia</span>
+	<a onclick="redirecturl(2)"><img src="assets/img/homepage/bphimg.png" width="274" height="321" alt="Click here to load the benign prostatic hyperplasia model" title="Benign Prostatic Hyperplasia" /></a>
+</div>
+<div style="position:absolute; margin-left:600px; height:240px; width:294px; z-index:1; margin-top:18px;" align="center">
+	<span style="font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #fff;">Radical Prostatetectomy</span>
+	<a onclick="redirecturl(3)"><img src="assets/img/homepage/pttimg.png" width="274" height="321" alt="Click here to load the radical prostatectomy model" title="Radical Prostatectomy" /></a>
+</div>
+<div style="position:absolute; margin-left:900px; height:240px; width:274px; z-index:1; margin-top:18px;" align="center">
+	<span style="font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #fff;">Female Anatomy</span>
+	<a onclick="redirecturl(1)"><img src="assets/img/homepage/femaleimg.png" width="274" height="321" alt="Click here to load the radical prostatectomy model" title="Female Anatomy Explorer" /></a>
+</div>
+
+<!-- additional space-->
+<div style="position:absolute; margin-left:1200px; height:240px; width:274px; z-index:1; margin-top:18px;" align="center">
+	<span style="font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #fff;">Mid-Urethral Sling</span>
+
+	<!--<a onclick="redirecturl(1)">--><img src="comingsoon.png" width="294" height="190" style="margin-top:-14px; cursor:default;" alt="Click here to load the mid-urethral sling model" title="Mid-Urethral Sling" /><!--</a>-->
+
+</div>
+<div style="position:absolute; margin-left:1500px; height:240px; width:24px; z-index:1; margin-top:18px;" align="center">
+<!--
+	<span style="font-weight:bold; font-size:14px; text-decoration:underline;">Female Anatomy</span>
+	<a onclick="redirecturl(1)"><img src="assets/img/homepage/femaleimg.png" width="274" height="321" alt="Click here to lead the radical prostatectomy model" title="Female Anatomy Explorer" /></a>
+-->
+</div>
+</div>
+
+<div style="width:341px; height:299px; background-image:url('assets/img/homepage/content-bg.png'); position:absolute; left:50%; margin-left:-512px; margin-top:377px;">
+	
+	<p style="color:#FFF; font-size:16px; font-family:helvetica; z-index:10; margin-left:25px; margin-top:15px;" id="text"><div style="width:341px; position:absolute; left:-70px; margin-top:-20px; text-align:center; height:36px; font-size:16px; font-family:helvetica; color:#7a0019; text-decoration:underline; font-weight:bold; margin-left:71px; line-height:36px;">About MyProcedure</div>
+	<BR><BR><div style="width:300px; margin-left:25px; color:#FFF; font-size:12px; font-family:helvetica; margin-top:-14px;">MyProcedure is a completely free educational tool developed by the Center for Research in Education and Simulation Technologies in collaboration with the University of Minnesota Medical School Department of Urology. Failure to ensure a patient’s understanding of the details regarding a diagnosis and proposed treatment may result in poor decisions, ill-informed consent, negative experience and avoidable health care costs. Keep yourself informed with this free tool today!</div></p>
+
+</div>
+
+<div style="width:342px; height:299px; background-image:url('assets/img/homepage/content-bg.png'); position:absolute; left:50%; margin-left:-171px; margin-top:377px;">
+
+	<p style="color:#FFF; font-size:16px; font-family:helvetica; z-index:10; margin-left:25px; margin-top:15px; " id="text"><span style="text-decoration:underline; font-weight:bold; color:#7a0019; margin-left:105px; line-height:20px; ">Features:</span>
+	<BR><ul style="color:#FFF; font-size:14px; font-family:helvetica; line-height:20px;">
+	<li>Interactive 3D Environment</li>
+	<li>Models are reconstructed from <i>real</i> DICOM data</li>
+	<li>Simple click and drag interface to explore the model</li>
+	<li>Free to use!</li>
+	<li>MyProcedure makes use of WebGL technology. At this time not all graphics cards are supported. Verify that your web browser is capable of viewing WebGL content by following this link <a style="color:#ffcc33; text-decoration:underline; cursor:pointer;" href="http://get.webgl.org/" target="_blank">http://get.webgl.org/</a>.</li></ul></p>
+
+</div>
+
+<div style="width:342px; height:299px; background-image:url('assets/img/homepage/content-bg.png'); position:absolute; left:50%; margin-left:170px; margin-top:377px;">
+	
+	<p style="color:#FFF; font-size:16px; font-family:helvetica; z-index:10; margin-left:25px; margin-top:15px;" id="text"><span style="font-size:16px; text-decoration:underline; margin-left:76px; line-height:20px; font-weight:bold; color:#7a0019;">Share Your Story</span>
+	<BR><BR><div style="width:300px; color:#FFF; font-size:12px; font-family:helvetica; line-height:16px; z-index:10; margin-left:25px; margin-top:-14px;">"My son was born with hydro-nephrosis post urethral valves, due to both of the ureters and urethra being severed.  He is no14 and has had a quite a few surgeries, bladder reconstruction, mitronoff.  And has suffered alot of kidney damage.  This site allows him to see exactly what his body looks like and how he should take care of it.  Don't get me wrong he has some brilliant doctors at the children's hospital we go to, but explaining this to a 5 or 16 year old can be daunting...THANK YOU LOVE THE SITE...<BR><BR>-anonymous" via <a href="https://chrome.google.com/webstore/detail/kknemlppfehplkoeodnfnldggmigihnn?hl=en-US&hc=search&hcp=main" style="text-decoration:underline; color:#fff;" target="_blank">Chrome Web Store</a></div></p>
+
+</div>
+<a href="https://chrome.google.com/webstore/detail/kknemlppfehplkoeodnfnldggmigihnn?hl=en-US&hc=search&hcp=main" target="_blank"><img src="assets/img/homepage/chrome_web_store_logo.gif" style="margin-left:355px; margin-top:690px;"/></a>
+
+<div id="scrollhelp" style="background-image:url('scroll-id.png'); height:65px; width:184px; position:absolute; margin-top:-450px; left:50%; margin-left:-92px; z-index:100; pointer-events:none;">
+
+    <img onclick="document.getElementById('scrollhelp').style.visibility='hidden';" src="small-close.png" style="margin-left:151px; margin-top:10px; position:absolute; pointer-events:auto;"/>
+    
+    <span style="margin-left:10px; margin-top:9px; position:absolute; font-size:12px; font-family:helvetica; line-height:15px; font-weight:bold;"><span style="margin-left:52px;">Hint:</span><BR>Scroll to view all scenes</span>
+
+</div>
+
+</body>
+<!-- BEGIN UofM FOOTER -->
+<div style="margin-top:10px;">
+	<div align="center">
+		<img src="assets/img/homepage/footerline.png" width="960px" height="1px" />
+	</div>
+	<div class="grid_7 alpha" id="footer_inner">
+		<ul class="copyright">
+		<li>&copy; 2011 Regents of the University of Minnesota. All rights reserved.</li>
+		<li>The University of Minnesota is an equal opportunity educator and employer</li>
+		<li>Last modified on August 9, 2011</li></ul>
+	</div>
+	<div class="grid_5 omega" id="footer_right">
+		<ul class="footer_links">
+		<li><a href="http://www.umn.edu/systemwide/parking.php">Parking &amp; Transportation</a></li>
+		<li><a href="http://campusmaps.umn.edu/">Maps &amp; Directions</a></li></ul>
+		<br class="clearabove" />
+		<ul class="footer_links"><li><a href="http://www.directory.umn.edu/">Directories</a></li>
+		<li><a href="http://www.umn.edu/twincities/contact/">Contact U of M</a></li>
+		<li><a href="http://www.privacy.umn.edu/">Privacy</a></li>
+		</ul>
+		<br class="clearabove" />
+	</div>
+</div>
+<!-- END UofM FOOTER -->
+</div>
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Male Anatomy, MyProcedure TM - CREST, University of Minnesota Department of Urology</title>
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="author" content="Vincent Rotty, Daniel Burke, Center for Research in Education and Simulation Technologies" />
+<meta name="description" content="web-based male anatomy explorer" />
+<meta name="keywords" content="male anatomy, webgl, web-based anatomy, anatomy, bph, radical prostatectomy, rpt, ptt, urology, department of urology, prostate cancer, cancer, male urology,  benign prostatic hyperplasia" />
+<meta http-equiv="pragma" content="no-cache">
+
+<link rel="shortcut icon" href="http://www1.umn.edu/twincities/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="lib/css/stylesheet.css" />
+
+<script type="text/javascript" src="assets/copperlichtdata/copperlicht.js"></script>
+<script type="text/javascript" src="lib/js/male110811.js"></script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-21292988-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<div id="movement" style="position:absolute; z-index:-100; margin-left:-100px;"></div>
+
+<body id="body1" onmousedown="closehand(); mousedown=1;" onmouseup="openhand(); mousedown=2;" onmousemove="getcoord(event);" style="overflow:hidden;">
+
+	<div id="shield" style="opacity:0.0; filter:alpha(opacity=0); visibility:hidden;" >
+		
+		<div id="addControls">
+		
+			<div id="addContText" onclick="addControls();" style="cursor:pointer; position:absolute; width:150px; height:30px; line-height:30px; text-align:center; bottom:35px; margin-left:3px; background-color:#7a0019; font-family:helvetica; font-weight:bold; font-size:16px; -moz-border-radius:8px; -webkit-border-radius:8px; border:3px solid #ffcc33; color:#ffcc33; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none;">Show Controls</div>
+			
+			<div id="addCont" style="visibility:hidden;">
+				<div style="cursor:default; position:absolute; margin-left:170px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Zoom
+				</div>
+				<div onclick="dFOVb(0.08);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:174px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="dFOVb(-0.08);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:224px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+				
+				<div style="cursor:default; position:absolute; margin-left:283px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Rotate
+				</div>
+				<div onclick="rotate(-15);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:287px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="rotate(15);"style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:337px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+
+				<div style="cursor:default; position:absolute; margin-left:396px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Pan Up/Down
+				</div>
+				<div onclick="panud(-2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:400px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="panud(2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:450px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+				
+				<div style="cursor:default; position:absolute; margin-left:509px; bottom:35px; border:2px solid #ffcc33; height:47px; width:103px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:14px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">
+					Pan Left/Right
+				</div>
+				<div onclick="panlr(2);" style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:513px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:40px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:12px;">-</div>
+				<div onclick="panlr(-2);"style="border:2px solid #ffcc33; position:absolute; cursor:pointer; margin-left:563px; bottom:39px; height:20px; width:45px; -moz-border-radius:4px; -webkit-border-radius:4px; background-color:#7a0019; color:#ffcc33; font-family:helvetica; font-weight:bold; font-size:30px; text-shadow:1px 1px 1px #000; -moz-user-select:none; -webkit-user-select:none; text-align:center; line-height:20px;">+</div>
+
+			</div>
+		
+		</div>
+		
+		<img src="assets/img/scene/shield.png" width="68px" height="71px" style="position:absolute; z-index:10; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+		<div class="bottomrunnertext" id="photo">
+			<div style="left:4px;"><a href="http://www.crest.umn.edu" target="_blank" >CREST<sup>TM</sup></a> | <a href="http://www.simportal.umn.edu" target="_blank" >SIMPORTAL<sup>TM</sup></a> | <a href="https://www.mmf.umn.edu/give/?giveto=1825" target="_blank">DONATE</a> | <a href="http://www.myprocedure.umn.edu/feedback" target="_blank">FEEDBACK</a> | <span onclick="helptext();" style="cursor:pointer;" >HELP</span> | <a href="javascript:window.close();">CLOSE WINDOW</a></div>
+		</div>
+		<span style="position:absolute; right:4px; bottom:1px; z-index:11;font-family:helvetica; font-size:22px; color:#ffcc33; font-weight:bold; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;">MY PROCEDURE<sup>TM</sup></span>
+		
+		<img src="assets/img/scene/mouseControls.png" height="39px" width="271px" style="position:absolute; right:2px; bottom:30px; z-index:11; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; pointer-events:none;" />
+		<img src="assets/img/scene/top-runners.png" width="1087px" height="67px" style="position:absolute; top:0px; left:0px; z-index:9; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+		<img id="imgX" src="assets/img/scene/top-runnert.png" width="1917px" height="71px" style="position:absolute; top:0px; left:1087px; z-index:9; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+		<img id="imgZ" src="assets/img/scene/bottom-runner.png" width="2880px" height="47px" style="position:absolute; bottom:0px; left:0px; z-index:9; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;" />
+		
+		<div class="toprunnertext">
+			<span style="position:absolute; left:91px; top:2px;">PRESET</span>
+			<span style="position:absolute; left:66Px; top:21px;">SELECTIONS</span>
+			<span style="position:absolute; left:234px; top:12px;">PENIS</span>
+			<span style="position:absolute; left:334px; top:12px;">TESTICLES</span>
+			<span style="position:absolute; left:473px; top:12px;">ORGANS</span>
+			<span style="position:absolute; left:595px; top:12px;">MUSCLES</span>
+			<span style="position:absolute; left:712px; top:12px;">LIGAMENTS</span>
+			<span style="position:absolute; left:860px; top:12px;">BONES</span>
+			<span style="position:absolute; left:1000px; top:12px;">SKIN</span>
+		</div>
+		<div id="presetline" style="position:absolute; z-index:10; top:44px; left:72px; background-color:#ffcc33; height:2px; width:115px; visibility:hidden;"></div>
+		<img id="penhov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:198px; visibility:hidden;" />
+		<img id="teshov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:326px; visibility:hidden;" />
+		<img id="orghov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:452px; visibility:hidden;" />
+		<img id="mushov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:580px; visibility:hidden;" />
+		<img id="lighov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:706px; visibility:hidden;" />
+		<img id="bonhov1" src="assets/img/scene/menu-select.png" width="127px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:834px; visibility:hidden;" />
+		<img id="prehov1" src="assets/img/scene/preset-select.png" width="161px" height="48px"  style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:36px; visibility:hidden;" />
+		<img id="newhov1" src="assets/img/scene/menu-select.png" height="48px" width="127px" style="position:absolute; pointer-events:none; user-select:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;z-index:9; top:0px; left:960px; visibility:hidden;"/>
+		<div id="prehov2"></div>
+		<div id="newhov2"></div>
+		<div id="bonhov2"></div>
+		<div id="lighov2"></div>
+		<div id="mushov2"></div>
+		<div id="orghov2"></div>
+		<div id="teshov2"></div>
+		<div id="penhov2"></div>
+		
+		
+		<span id="dtoolnot" style="font-family:hevletica; color:#FFcc33; font-size:18px; font-weight:bold; text-shadow: 1px 1px 1px #000; z-index:6; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none; pointer-events:none;"><img id="disson" src="assets/img/scene/disicon.png" height="100px" width="100px" style="position:absolute; top:70px; left:5px; z-index:7; visibility:hidden;"/><img id="dissoff" src="assets/img/scene/expIcon.png" height="100px" width="100px" style="position:absolute; top:70px; left:5px; z-index:7;"/><span id="dtooltext" style="z-index:7; position:absolute; left:5px; top:98px; width:100px; pointer-events:none;">DISSECTION TOOL OFF</span></span>
+		
+		<div id="box" style="position:absolute; left:2px; top:30px; visibility:hidden; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;">
+			<img src="assets/img/scene/infoplate-3.png" width="342px" height="69px" style="z-index:4;" />
+			<span id="infotext1" class="infoplatetext" style="position:absolute; height:20px; width:290px; left:48px; top:3px; bottom:3px; font-size:18px; visibility:hidden; text-align:center;"></span>
+			<!--
+			<span style="position:absolute; left:6px; bottom:32px;">CURRENTLY&nbsp;SHOWING&nbsp;INFORMATION:</span>
+			<span id="infotext2" style="position:absolute; left:316px; bottom:32px; visibility:hidden;">TEXT2</span>
+			-->
+		</div>
+		
+		<div id="anatomy-menu" style="text-decoration:none;">
+		<div id="presetsel" class="submenutext">
+			<span id="leftsagu" style="position:absolute; left:68px; top:49px; z-index:10;">Left&nbsp;Sagittal</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:49px; z-index:9;" />
+			<span id="rsagu" style="position:absolute; left:68px; top:66px; z-index:10;">Right&nbsp;Sagittal</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:66px; z-index:9;" />
+			<span id="overheadu" style="position:absolute; left:68px; top:83px; z-index:10;">Overhead&nbsp;View</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:83px; z-index:9;" />
+			<span id="perinealu" style="position:absolute; left:68px; top:100px; z-index:10;">Perineal&nbsp;View</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:100px; z-index:9;" />
+			<span id="resetcamu" style="position:absolute; left:68px; top:117px; z-index:10;">Reset&nbsp;Camera</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:117px; z-index:9;" />
+			<span id="showallu" style="position:absolute; left:68px; top:134px; z-index:10;">Show&nbsp;All&nbsp;Models</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="165px" height="17px" style="position:absolute; left:66px; top:134px; z-index:9;" />
+		</div> 
+		
+		<div id="skinmenu" class="submenutext">
+			<span id="ranuu" style="position:absolute; left:962px; top:66px; z-index:10;">Anus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:66px; z-index:9;" />
+				<img id="ranuch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:67px; z-index:10;" />
+			<span id="lanuu" style="position:absolute; left:962px; top:49px; z-index:10;">Anus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:49px; z-index:9;" />
+				<img id="lanuch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:50px; z-index:10;" />
+			<span id="rpenisu" style="position:absolute; left:962px; top:134px; z-index:10;">Penis&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:134px; z-index:9;" />
+				<img id="rpenisch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:135px; z-index:10;" />
+			<span id="lpenisu" style="position:absolute; left:962px; top:117px; z-index:10;">Penis&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:117px; z-index:9;" />
+				<img id="lpenisch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:118px; z-index:10;" />
+			<span id="rpensfasu" style="position:absolute; left:962px; top:100px; z-index:10;">Penis&nbsp;Superficial&nbsp;Fas&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:100px; z-index:9;" />
+				<img id="rpensfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:101px; z-index:10;" />
+			<span id="lpensfasu" style="position:absolute; left:962px; top:83px; z-index:10;">Penis&nbsp;Superficial&nbsp;Fas&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:83px; z-index:9;" />
+				<img id="lpensfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:84px; z-index:10;" />
+			<span id="rpersfasu" style="position:absolute; left:962px; top:167px; z-index:10;">Perineum&nbsp;Super...&nbsp;Fas&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:167px; z-index:9;" />
+				<img id="rpersfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:168px; z-index:10;" />
+			<span id="lpersfasu" style="position:absolute; left:962px; top:150px; z-index:10;">Perineum&nbsp;Super...&nbsp;Fas&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:150px; z-index:9;" />
+				<img id="lpersfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:151px; z-index:10;" />
+			<span id="rscrotumu" style="position:absolute; left:962px; top:201px; z-index:10;">Scrotum&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:201px; z-index:9;" />
+				<img id="rscrotumch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:202px; z-index:10;" />
+			<span id="lscrotumu" style="position:absolute; left:962px; top:184px; z-index:10;">Scrotum&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:184px; z-index:9;" />
+				<img id="lscrotumch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:185px; z-index:10;" />
+			<span id="rssfasu" style="position:absolute; left:962px; top:235px; z-index:10;">Scrotum&nbsp;Super...&nbsp;Fas&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:235px; z-index:9;" />
+				<img id="rssfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:236px; z-index:10;" />
+			<span id="lssfasu" style="position:absolute; left:962px; top:218px; z-index:10;">Scrotum&nbsp;Super...&nbsp;Fas&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:218px; z-index:9;" />
+				<img id="lssfasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:219px; z-index:10;" />
+			<span id="torsou" style="position:absolute; left:962px; top:252px; z-index:10;">Torso</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:961px; top:252px; z-index:9;" />
+				<img id="torsoch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1142px; top:253px; z-index:10;" />
+			<span id="skinhideallu" style="position:absolute; left:1039px; top:269px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="199px" height="17px" style="position:absolute; left:961px; top:269px; z-index:9;" />
+			<span id="skinshowallu" style="position:absolute; left:1034px; top:286px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-3.png" width="199px" height="17px" style="position:absolute; left:961px; top:286px; z-index:9;" />
+		</div>
+		
+		<div id="penmenu" class="submenutext">
+			<span id="lbucku" style="position:absolute; left:200px; top:49px; z-index:10;">Buck's&nbsp;Fascia&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:49px; z-index:9;" />
+				<img id="lbucch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:50px; z-index:10;" />
+			<span id="lbubu" style="position:absolute; left:200px; top:66px; z-index:10;">Bulbospongiosus&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:66px; z-index:9;" />
+				<img id="lbulch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:67px; z-index:10;" />
+			<span id = "lcorcu" style="position:absolute; left:200px; top:83px; z-index:10;">Corpus&nbsp;Cavernosum&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:83px; z-index:9;" />
+				<img id="lcorcch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:84px; z-index:10;" />
+			<span id="lcorsu" style="position:absolute; left:200px; top:100px; z-index:10;">Corpus&nbsp;Spongiosum&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:100px; z-index:9;" />
+				<img id="lcorsch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:101px; z-index:10;" />
+			<span id="lglau" style="position:absolute; left:200px; top:117px; z-index:10;">Glans&nbsp;Penis&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:117px; z-index:9;" />
+				<img id="lglach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:118px; z-index:10;" />
+			<span id="lurou" style="position:absolute; left:200px; top:134px; z-index:10;">Urogenital&nbsp;Diaphragm&nbsp;(L)</span>	
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:134px; z-index:9;" />
+				<img id="luroch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:135px; z-index:10;" />
+			<span id="lurethu" style="position:absolute; left:200px; top:151px; z-index:10;">Urethra&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:151px; z-index:9;" />
+				<img id="lurethch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:152px; z-index:10;" />
+			<span id="lperfu" style="position:absolute; left:200px; top:168px; z-index:10;">Perineal&nbsp;Fascia&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:168px; z-index:9;" />
+				<img id="lperfch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:169px; z-index:10;" />
+			<span id="lpermu" style="position:absolute; left:200px; top:185px; z-index:10;">Perineal&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:185px; z-index:9;" />
+				<img id="lpermch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:186px; z-index:10;" />
+			<span id="liscu" style="position:absolute; left:200px; top:202px; z-index:10;">Ischiocavernosus&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:202px; z-index:9;" />
+				<img id="liscch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:203px; z-index:10;" />
+			<span id="dvinu" style="position:absolute; left:200px; top:219px; z-index:10;">Dorsal&nbsp;Vein</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:198px; top:219px; z-index:9;" />
+				<img id="dvinch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:379px; top:220px; z-index:10;" />
+			<span id="hideallpenu" style="position:absolute; left:274px; top:236px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:198px; top:236px; z-index:9;" />
+			<span id="showallpenu" style="position:absolute; left:269px; top:253px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:198px; top:253px; z-index:9;" />
+			<span id="showonlypenu" style="position:absolute; left:266px; top:270px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:198px; top:270px; z-index:9;" />	
+			<span id="rbucku" style="position:absolute; left:399px; top:49px; z-index:10;">Buck's&nbsp;Fascia&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:49px; z-index:9;" />
+				<img id="rbucch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:50px; z-index:10;" />
+			<span id="rbubu" style="position:absolute; left:399px; top:66px; z-index:10;">Bulbospongiosus&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:66px; z-index:9;" />
+				<img id="rbulch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:67px; z-index:10;" />
+			<span id="rcorcu" style="position:absolute; left:399px; top:83px; z-index:10;">Corpus&nbsp;Cavernosum&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:83px; z-index:9;" />
+				<img id="rcorcch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:84px; z-index:10;" />
+			<span id="rcorsu" style="position:absolute; left:399px; top:100px; z-index:10;">Corpus&nbsp;Spongiosum&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:100px; z-index:9;" />
+				<img id="rcorsch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:101px; z-index:10;" />
+			<span id="rglau" style="position:absolute; left:399px; top:117px; z-index:10;">Glans&nbsp;Penis&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:117px; z-index:9;" />
+				<img id="rglach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:118px; z-index:10;" />
+			<span id="rurou" style="position:absolute; left:399px; top:134px; z-index:10;">Urogenital&nbsp;Diaphragm&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:134px; z-index:9;" />
+				<img id="ruroch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:135px; z-index:10;" />
+			<span id="rurethu" style="position:absolute; left:399px; top:151px; z-index:10;">Urethra&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:151px; z-index:9;" />
+				<img id="rurethch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:152px; z-index:10;" />
+			<span id="rperfu" style="position:absolute; left:399px; top:168px; z-index:10;">Perineal&nbsp;Fascia&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:168px; z-index:9;" />
+				<img id="rperfch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:169px; z-index:10;" />
+			<span id="rpermu" style="position:absolute; left:399px; top:185px; z-index:10;">Perineal&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:185px; z-index:9;" />
+				<img id="rpermch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:186px; z-index:10;" />
+			<span id="riscu" style="position:absolute; left:399px; top:202px; z-index:10;">Ischiocavernosus&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:202px; z-index:9;" />
+				<img id="riscch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:203px; z-index:10;" />
+			<span id="susligu" style="position:absolute; left:399px; top:219px; z-index:10;">Suspensory&nbsp;Lig</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:397px; top:219px; z-index:9;" />
+				<img id="susligch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:578px; top:220px; z-index:10;" />
+		</div>
+		<div id="tesmenu" class="submenutext">
+			<span id="lparu" style="position:absolute; left:328px; top:49px; z-index:10;">Parietal&nbsp;Tunica&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:49px; z-index:9;" />
+				<img id="lparch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:50px; z-index:10;" />
+			<span id="lintu" style="position:absolute; left:328px; top:66px; z-index:10;">Internal&nbsp;Spermatic&nbsp;Fas&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:66px; z-index:9;" />
+				<img id="lintch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:67px; z-index:10;" />
+			<span id="lgonvu" style="position:absolute; left:328px; top:83px; z-index:10;">Gonadal&nbsp;Vein&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:83px; z-index:9;" />
+				<img id="lgonvch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:84px; z-index:10;" />
+			<span id="lgonau" style="position:absolute; left:328px; top:100px; z-index:10;">Gonadal&nbsp;Artery&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:100px; z-index:9;" />
+				<img id="lgonach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:101px; z-index:10;" />
+			<span id="lextu" style="position:absolute; left:328px; top:117px; z-index:10;">External&nbsp;Spermatic&nbsp;Fas&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:117px; z-index:9;" />
+				<img id="lextch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:118px; z-index:10;" />
+			<span id="lepiu" style="position:absolute; left:328px; top:134px; z-index:10;">Epididymis&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:134px; z-index:9;" />
+				<img id="lepich" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:135px; z-index:10;" />
+			<span id="ltesru" style="position:absolute; left:328px; top:151px; z-index:10;">Testi&nbsp;(L)&nbsp;Right&nbsp;Half</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:151px; z-index:9;" />
+				<img id="ltesrch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:152px; z-index:10;" />
+			<span id="lteslu" style="position:absolute; left:328px; top:168px; z-index:10;">Testi&nbsp;(L)&nbsp;Left&nbsp;Half</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:168px; z-index:9;" />
+				<img id="lteslch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:169px; z-index:10;" />
+			<span id="lducu" style="position:absolute; left:328px; top:185px; z-index:10;">Ductus&nbsp;Deferens&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:185px; z-index:9;" />
+				<img id="lducch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:186px; z-index:10;" />
+			<span id="lcreu" style="position:absolute; left:328px; top:202px; z-index:10;">Cremaster&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:326px; top:202px; z-index:9;" />
+				<img id="lcrech" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:509px; top:203px; z-index:10;" />
+			<span id="hidealltesu" style="position:absolute; left:402px; top:219px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:326px; top:219px; z-index:9;" />
+			<span id="showalltesu" style="position:absolute; left:397px; top:236px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:326px; top:236px; z-index:9;" />
+			<span id="showonlytesu" style="position:absolute; left:396px; top:253px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:326px; top:253px; z-index:9;" />
+			<span id="rparu" style="position:absolute; left:527px; top:49px; z-index:10;">Parietal&nbsp;Tunica&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:49px; z-index:9;" />
+				<img id="rparch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:50px; z-index:10;" />
+			<span id="rintu" style="position:absolute; left:527px; top:66px; z-index:10;">Internal&nbsp;Spermatic&nbsp;Fas&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:66px; z-index:9;" />
+				<img id="rintch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:67px; z-index:10;" />
+			<span id="rgonvu" style="position:absolute; left:527px; top:83px; z-index:10;">Gonadal&nbsp;Vein&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:83px; z-index:9;" />
+				<img id="rgonvch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:84px; z-index:10;" />
+			<span id="rgonau" style="position:absolute; left:527px; top:100px; z-index:10;">Gonadal&nbsp;Artery&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:100px; z-index:9;" />
+				<img id="rgonach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:101px; z-index:10;" />
+			<span id="rextu" style="position:absolute; left:527px; top:117px; z-index:10;">External&nbsp;Spermatic&nbsp;Fas&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:117px; z-index:9;" />
+				<img id="rextch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:118px; z-index:10;" />
+			<span id="repiu" style="position:absolute; left:527px; top:134px; z-index:10;">Epididymis&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:134px; z-index:9;" />
+				<img id="repich" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:135px; z-index:10;" />
+			<span id="rtesru" style="position:absolute; left:527px; top:151px; z-index:10;">Testi&nbsp;(R)&nbsp;Right&nbsp;Half</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:151px; z-index:9;" />
+				<img id="rtesrch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:152px; z-index:10;" />
+			<span id="rteslu" style="position:absolute; left:527px; top:168px; z-index:10;">Testi&nbsp;(R)&nbsp;Left&nbsp;Half</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:168px; z-index:9;" />
+				<img id="rteslch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:169px; z-index:10;" />
+			<span id="rducu" style="position:absolute; left:527px; top:185px; z-index:10;">Ductus&nbsp;Deferens&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:185px; z-index:9;" />
+				<img id="rducch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:186px; z-index:10;" />
+			<span id="rcreu" style="position:absolute; left:527px; top:202px; z-index:10;">Cremaster&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:525px; top:202px; z-index:9;" />
+				<img id="rcrech" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:706px; top:203px; z-index:10;" />
+		</div>
+		<div id="orgmenu" class="submenutext">
+			<span id="lrecu" style="position:absolute; left:454px; top:49px; z-index:10;">Rectum&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:49px; z-index:9;" />
+				<img id="lrecch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:50px; z-index:10;" />
+			<span id="rrecu" style="position:absolute; left:454px; top:66px; z-index:10;">Rectum&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:66px; z-index:9;" />
+				<img id="rrecch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:67px; z-index:10;" />
+			<span id="lblau" style="position:absolute; left:454px; top:83px; z-index:10;">Bladder&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:83px; z-index:9;" />
+				<img id="lblach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:84px; z-index:10;" />
+			<span id="rblau" style="position:absolute; left:454px; top:100px; z-index:10;">Bladder&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:100px; z-index:9;" />
+				<img id="rblach" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:101px; z-index:10;" />
+			<span id="lbulu" style="position:absolute; left:454px; top:117px; z-index:10;">Bulbourethral&nbsp;Gland&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:117px; z-index:9;" />
+				<img id="lbubch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:118px; z-index:10;" />
+			<span id="rbulu" style="position:absolute; left:454px; top:134px; z-index:10;">Bulbourethral&nbsp;Gland&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:134px; z-index:9;" />
+				<img id="rbubch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:135px; z-index:10;" />
+			<span id="lvasu" style="position:absolute; left:454px; top:151px; z-index:10;">Vas&nbsp;Deferens&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:151px; z-index:9;" />
+				<img id="lvasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:152px; z-index:10;" />
+			<span id="rvasu" style="position:absolute; left:454px; top:168px; z-index:10;">Vas&nbsp;Deferens&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:168px; z-index:9;" />
+				<img id="rvasch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:169px; z-index:10;" />
+			<span id="lprcu" style="position:absolute; left:454px; top:185px; z-index:10;">Prostate&nbsp;Capsule&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:185px; z-index:9;" />
+				<img id="lprocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:186px; z-index:10;" />
+			<span id="rprcu" style="position:absolute; left:454px; top:202px; z-index:10;">Prostate&nbsp;Capsule&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:202px; z-index:9;" />
+				<img id="rprocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:203px; z-index:10;" />
+			<span id="lprou" style="position:absolute; left:454px; top:219px; z-index:10;">Prostate&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:219px; z-index:9;" />
+				<img id="lproch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:220px; z-index:10;" />
+			<span id="rprou" style="position:absolute; left:454px; top:236px; z-index:10;">Prostate&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:236px; z-index:9;" />
+				<img id="rproch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:237px; z-index:10;" />
+			<span id="lsemu" style="position:absolute; left:454px; top:253px; z-index:10;">Seminal&nbsp;Vesicle&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:253px; z-index:9;" />
+				<img id="lsemch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:254px; z-index:10;" />
+			<span id="rsemu" style="position:absolute; left:454px; top:270px; z-index:10;">Seminal&nbsp;Vesicle&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:270px; z-index:9;" />
+				<img id="rsemch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:271px; z-index:10;" />
+			<span id="lureu" style="position:absolute; left:454px; top:287px; z-index:10;">Ureter&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:287px; z-index:9;" />
+				<img id="lureterch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:288px; z-index:10;" />
+			<span id="rureu" style="position:absolute; left:454px; top:304px; z-index:10;">Ureter&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:452px; top:304px; z-index:9;" />
+				<img id="rureterch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:635px; top:305px; z-index:10;" />
+			<span id="hideallorgu" style="position:absolute; left:528px; top:321px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:452px; top:321px; z-index:9;" />
+			<span id="showallorgu" style="position:absolute; left:523px; top:338px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:452px; top:338px; z-index:9;" />
+			<span id="showonlyorgu" style="position:absolute; left:517px; top:355px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:452px; top:355px; z-index:9;" />
+		</div>
+		<div id="musmenu" class="submenutext">
+			<span id="lsphu" style="position:absolute; left:582px; top:49px; z-index:10;">Sphincter&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:49px; z-index:9;" />
+				<img id="lsphch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:50px; z-index:10;" />
+			<span id="rsphu" style="position:absolute; left:582px; top:66px; z-index:10;">Sphincter&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:66px; z-index:9;" />
+				<img id="rsphch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:67px; z-index:10;" />
+			<span id="lpubu" style="position:absolute; left:582px; top:83px; z-index:10;">Pubococcygeus&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:83px; z-index:9;" />
+				<img id="lpubch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:84px; z-index:10;" />
+			<span id="rpubu" style="position:absolute; left:582px; top:100px; z-index:10;">Pubococcygeus&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:100px; z-index:9;" />
+				<img id="rpubch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:101px; z-index:10;" />
+			<span id="lpiru" style="position:absolute; left:582px; top:117px; z-index:10;">Piriformis&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:117px; z-index:9;" />
+				<img id="lpirch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:118px; z-index:10;" />
+			<span id="rpiru" style="position:absolute; left:582px; top:134px; z-index:10;">Piriformis&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:134px; z-index:9;" />
+				<img id="rpirch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:135px; z-index:10;" />
+			<span id="lobtu" style="position:absolute; left:582px; top:151px; z-index:10;">Obturator&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:151px; z-index:9;" />
+				<img id="lobtch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:152px; z-index:10;" />
+			<span id="robtu" style="position:absolute; left:582px; top:168px; z-index:10;">Obturator&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:168px; z-index:9;" />
+				<img id="robtch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:169px; z-index:10;" />
+			<span id="lillu" style="position:absolute; left:582px; top:185px; z-index:10;">Illiococcygeus&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:185px; z-index:9;" />
+				<img id="licocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:186px; z-index:10;" />
+			<span id="rillu" style="position:absolute; left:582px; top:202px; z-index:10;">Illiococcygeus&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:202px; z-index:9;" />
+				<img id="ricocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:203px; z-index:10;" />
+			<span id="lcocu" style="position:absolute; left:582px; top:219px; z-index:10;">Coccygeus&nbsp;Mus&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:219px; z-index:9;" />
+				<img id="lcocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:220px; z-index:10;" />
+			<span id="rcocu" style="position:absolute; left:582px; top:236px; z-index:10;">Coccygeus&nbsp;Mus&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:580px; top:236px; z-index:9;" />
+				<img id="rcocch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:761px; top:237px; z-index:10;" />
+			<span id="hideallmusu" style="position:absolute; left:656px; top:253px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:580px; top:253px; z-index:9;" />
+			<span id="showallmusu" style="position:absolute; left:651px; top:270px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:580px; top:270px; z-index:9;" />
+			<span id="showonlymusu" style="position:absolute; left:646px; top:287px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:580px; top:287px; z-index:9;" />
+		</div>
+		<div id="ligmenu" class="submenutext">
+			<span id="lsacsu" style="position:absolute; left:708px; top:49px; z-index:10;">Sacrospinous&nbsp;Lig&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:49px; z-index:9;" />
+				<img id="lsacroch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:50px; z-index:10;" />
+			<span id="rsacsu" style="position:absolute; left:708px; top:66px; z-index:10;">Sacrospinous&nbsp;Lig&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:66px; z-index:9;" >
+				<img id="rsacroch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:67px; z-index:10;" />
+			<span id="lsactu" style="position:absolute; left:708px; top:83px; z-index:10;">Sacrotuberous&nbsp;Lig&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:83px; z-index:9;" />
+				<img id="lsacrotch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:84px; z-index:10;" />
+			<span id="rsactu" style="position:absolute; left:708px; top:100px; z-index:10;">Sacrotuberous&nbsp;Lig&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:100px; z-index:9;" />
+				<img id="rsacrotch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:101px; z-index:10;" />
+			<span id="ltenu" style="position:absolute; left:708px; top:117px; z-index:10;">Tendinous&nbsp;Arch&nbsp;(L)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:117px; z-index:9;" />
+				<img id="ltendinch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:118px; z-index:10;" />
+			<span id="rtenu" style="position:absolute; left:708px; top:134px; z-index:10;">Tendinous&nbsp;Arch&nbsp;(R)</span>
+				<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:706px; top:134px; z-index:9;" />
+				<img id="rtendinch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:887px; top:135px; z-index:10;" />
+			<span id="hideallligu" style="position:absolute; left:782px; top:151px; z-index:10;">Hide&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:706px; top:151px; z-index:9;" />
+			<span id="showallligu" style="position:absolute; left:777px; top:168px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:706px; top:168px; z-index:9;" />
+			<span id="showonlyligu" style="position:absolute; left:771px; top:185px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:706px; top:185px; z-index:9;" />
+		</div>
+		<div id="bonmenu" class="submenutext">
+			<span id="lpelu" style="position:absolute; left:835px; top:49px; z-index:10;">Pelvis&nbsp;(L)</span>
+			<span id="rpelu" style="position:absolute; left:835px; top:66px; z-index:10;">Pelvis&nbsp;(R)</span>
+			<span id="sacu" style="position:absolute; left:835px; top:83px; z-index:10;">Sacrum</span>
+			<span id="pubsymu" style="position:absolute; left:835px; top:100px; z-index:10;">Pubic&nbsp;Symphysis</span>
+			<span id="hideallbonu" style="position:absolute; left:911px; top:117px; z-index:10;">Hide&nbsp;All</span>
+			<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:834px; top:49px; z-index:9;" />
+			<span id="showallbonu" style="position:absolute; left:906px; top:134px; z-index:10;">Show&nbsp;All</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:834px; top:134px; z-index:9;" />
+			<span id="showonlybonu" style="position:absolute; left:901px; top:151px; z-index:10;">Show&nbsp;Only</span>
+				<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:834px; top:151px; z-index:9;" />
+				<img id="leftpelch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1015px; top:50px; z-index:10;" />
+			<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:834px; top:66px; z-index:9;" >
+				<img id="rpelch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1015px; top:67px; z-index:10;" />
+			<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:834px; top:83px; z-index:9;" />
+				<img id="sacrch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1015px; top:84px; z-index:10;" />
+			<img src="assets/img/scene/menu-slider.png" width="199px" height="17px" style="position:absolute; left:834px; top:100px; z-index:9;" />
+				<img id="pubsymch" src="assets/img/scene/check.png" width="15px" height="14px" style="position:absolute; left:1015px; top:101px; z-index:10;" />
+			<img src="assets/img/scene/menu-slider-2.png" width="199px" height="17px" style="position:absolute; left:834px; top:117px; z-index:9;" />
+		</div>
+		</div>
+		
+		<div id="help" style="visibility:hidden">
+			<img src="assets/img/scene/help-menu-close.png" width="89" height="89" style="position:absolute; z-index:13; user-select:none; margin-top:-167px; margin-left:300px; top:50%; left:50%;" onclick="helptext();"/>
+			<img src="assets/img/scene/black.png" width="100%" height="100%" style="position:absolute; left:0px; top:0px; z-index:11; opacity:0.5;"/>
+			<img src="assets/img/scene/help-screen.png" width="960" height="384" style="position:absolute; z-index:12; user-select:none; margin-top:-192px; margin-left:-480px; top:50%; left:50%; pointer-events:none;"/>
+			<div class="helptext">
+				<p><li>You can click and drag around the screen to rotate the male pelvic model.</li>
+				<li>Hovering over a piece of anatomy will identify it.</li>
+				<li>Specific models can also be shown/hidden through the anatomy menu at the top of the screen.</li>
+				<li>The dissection tool allows individual pieces of anatomy to be removed by clicking on them.</li>
+				<li>Click and drag around the screen with the left mouse button to rotate the model.</li>
+				<li>Click and drag around the screen with the right mouse button to pan the model.</li>
+				<li>Zoom in and out using the middle mouse button.</li>
+				<li>Questions or suggestions related to this product may be directed to <a href="mailto:rotty002@umn.edu" style="text-decoration:underline; color:#FFF">Vincent Rotty</a></li></p>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div id="tacou" style="height:400px; width:800px; margin-left:-400px; margin-top:-200px; position:absolute; left:50%; top:50%; z-index:100; overflow:hidden; background-image:url('assets/img/scene/alpha.png');">
+
+		<div style="height:100px; width:800px; margin-left:0px; margin-top:96px; text-align:center; font-family:helvetica; font-weight:bold; font-size:14pt; text-shadow:1px 1px 1px #000; color:#FFcc33; z-index:101">
+			<div style="width:230px; height:100px; margin-left:25px; margin-top:0px;">Click and drag with the left mouse button to rotate the model</div>
+			<div style="width:230px; height:100px; margin-left:288px; margin-top:-100px;">Use the scroll wheel to make the model appear larger or smaller</div>
+			<div style="width:230px; height:100px; margin-left:550px; margin-top:-100px;">Click and drag with the right mouse button to pan the canvas</div>
+		</div>
+		
+		<div style="height:185px; width:700px; background-color:#fff; z-index:102; margin-left:50px; margin-top:-10px; font-size:10pt; font-family:helvetica; color:#000; overflow:auto; padding-bottom:0px;">
+			<p style="text-decoration:underline; font-weight:bold; font-size:16pt; margin-top:0px;">Terms and Conditions of use</p>
+			<p style="font-weight:bold; font-size:12pt;">PLEASE READ THESE TERMS AND CONDITIONS OF USE CAREFULLY BEFORE USING THIS SITE.</p>
+			<p>By using this site, you signify your assent to these Terms and Conditions. If you do not agree to all of these Terms and Conditions of use, do not use this site.</p>
+			<p>All site users represent and warrant that they are at least 18 years of age and that they possess the legal rights and ability to agree to these Terms and Conditions of use and to use this site in accordance with these Terms and Conditions of Use.</p>
+			<p>The University of Minnesota Medical School may revise and update these Terms and Conditions at any time. Your continued usage of the MyProcedureTM website will mean you accept those changes.</p>
+			<p style="font-weight:bold;">THIS SITE DOES NOT PROVIDE MEDICAL ADVICE</p>
+			<p>The contents of the MyProcedureTM website, such as text, graphics, images, information obtained from the University of Minnesota Medical School’s licensors, and other material contained on the MyProcedureTM website are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read on the MyProcedureTM!</p>
+			<p>If you think you may have a medical emergency, call your doctor or 911 immediately. The University of Minnesota Medical School does not recommend or endorse any specific tests, physicians, products, procedures, opinions, or other information that may be mentioned on the MyProcedureTM website. Reliance on any information provided by the University of Minnesota Medical School, University of Minnesota Medical School employees, others appearing on the Web-Access-Models website at the invitation of the University of Minnesota Medical School, or other visitors to the MyProcedureTM website is solely at your own risk.</p>
+			<p>The MyProcedureTM website may contain health- or medical-related materials that are sexually explicit. If you find these materials offensive, you may not want to use our site.</p>
+			<p style="font-weight:bold;">USE OF CONTENT</p>
+			<p>The University of Minnesota Medical School does not authorizes the download or local storage of the material contained on the MyProcedureTM website.</p> 
+			<p>The content is protected by copyright under both United States and foreign laws. Title to the Content remains with the University of Minnesota Medical School or its licensors. Any use of the content not expressly permitted by these Terms and Conditions is a breach of these Terms and Conditions and may violate copyright, trademark, and other laws. Content and features are subject to change or termination without notice in the editorial discretion of the University of Minnesota Medical School. All rights not expressly granted herein are reserved to the University of Minnesota Medical School and its licensors.</p>
+			<p>If you violate any of these Terms and Conditions, your permission to use the content automatically terminates and you must immediately destroy any copies you have made of any portion of the content. These actions are in addition to and not in lieu or limitation of any other legal right we remedy we may have. Further, we shall not be liable to you or any third party for any such termination or discontinuance.</p>
+			<p style="font-weight:bold;">LIABILITY OF THE UNIVERSITY OF MINNESOTA MEDICAL SCHOOL AND ITS LISCENSORS</p>
+			<p>The use of the MyProcedureTM website and content is at your own risk.</p>
+			<p>When using the MyProcedureTM website, information will be transmitted over a medium that may be beyond the control and jurisdiction of the University of Minnesota Medical School and its suppliers. Accordingly, the University of Minnesota Medical School assumes no liability for or relating to the delay, failure, interruption, or corruption of any data or other information transmitted in connection with use of the MyProcedureTM website.</p>
+			<p>THE MyProcedureTM  WEBSITE AND THE CONTENT ARE PROVIDED ON AN “AS-IS” BASIS. THIS MEANS THAT THE INFORMATION CONTAINED ON OR PROVIDED THROUGH THIS SERVICE IN INTENDED FOR GENERAL CONSUMER UNDERSTANDING AND EDUCATION. ANY ACCESS TO THIS SITE IS VOLUNTARY. WE WILL REGARD ALL ACCESS AS VOLUNTARY AND AT THE SOLE RISK OF THE USER.</p> 
+			<p>THE UNIVERSITY OF MINNESOTA MEDICAL SCHOOL, ITS LICENSORS, AND ITS SUPPLIERS, TO THE FULLEST EXTENT PERMITTED BY LAW, DISCLAIM ALL WARRANTIES, EITHER EXPRESS OR IMPLIED, STATUTORY OR OTHERWISE, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, NON-INFRINGEMENT OF THIRD PARTIES' RIGHTS, AND FITNESS FOR PARTICULAR PURPOSE.</p>
+			<p>Without limiting the foregoing, the University of Minnesota Medical School, its licensors, and its suppliers make no representations or warranties about the following:</p>
+				<ul><li>The accuracy, reliability, completeness, currentness, or timeliness of the content, software, text, graphics, links, or communications provided on or through the use of the MyProcedureTM website or University of Minnesota Medical School.</li>
+				<li>The satisfaction of any government regulations requiring disclosure of information on prescription drug products or the approval or compliance of any software tools with regard to the content contained on the MyProcedureTM website.</li></ul>
+			<p>We do not operate, control, supply, endorse, warrant, or guarantee any information, products, services, or merchandise that is not clearly identified as information products, services, or merchandise supplied by us. We reserve the right at any time and from time to time to modify or discontinue, temporarily or permanently, this site, or any part thereof, with or without notice.</p>
+			<p>In no event shall the University of Minnesota Medical School, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website be liable for any damages (including, without limitation, incidental and consequential damages, personal injury/wrongful death, lost profits, or damages resulting from lost data or business interruption) resulting from the use of or inability to use the MyProcedureTM website or the content, whether based on warranty, contract, tort, or any other legal theory, and whether or not the University of Minnesota Medical School, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website are advised of the possibility of such damages. The University of Minnesota, its licensors, its suppliers, or any third parties mentioned on the MyProcedureTM website are not liable for any personal injury, including death, caused by your use or misuse of the MyProcedureTM website or its content. The sole and exclusive remedy dissatisfaction with the services of the MyProcedureTM website will be to stop using the website. Any claims arising in connection with your use of the MyProcedureTM website or any of its content must be brought within one (1) year of the date of the event giving rise to such action occurred. Remedies under these Terms and Conditions are exclusive and are limited to those expressly provided for in these Terms and Conditions.</p>
+			<p style="font-weight:bold;">INDEMNITY</p>
+			<p>You agree to defend, indemnify, and hold the University of Minnesota Medical School, its Regents, officers, directors, employees, agents, licensors, and suppliers, harmless from and against any claims, actions or demands, liabilities and settlements including without limitation, reasonable legal and accounting fees, resulting from, or alleged to result from, your violation of these Terms and Conditions.</p>
+			<p style="font-weight:bold;">GENERAL</p>
+			<p>We do not guarantee continuous, uninterrupted or secure access to our services, and operation of this site may be interfered with by numerous factors outside of our control. You agree that these Terms and Conditions of Use and all incorporated agreements between us and you may be automatically assigned by us, in our sole discretion, to a third party in the event of a merger, acquisition, or liquidation.</p>
+			<p>Our failure to act with respect to a breach by you or other of these Terms and Conditions of Use does not waive our right to act with respect to subsequent or similar breaches. These Terms and Conditions of Use set forth the entire understanding and agreement between us and any site user with respect to the site, its uses, and services.</p>
+			<p>The University of Minnesota Medical School is based in Minneapolis, Minnesota in the United States of America with principal offices residing in Minneapolis, MN. The University of Minnesota Medical School makes no claims that the University of Minnesota Medical School or any website within the University of Minnesota Medical School network and the content are appropriate or may be downloaded outside of the United States. Access to the content may not be legal by certain persons or in certain countries. If you access the University of Minnesota Medical School network from outside the United States, you do so at your own risk and are responsible for compliance with the laws of your jurisdiction.</p>
+			<p style="font-weight:bold;">GOVERNING LAW AND JURISDICTION</p>
+			<p>Because of the designated purpose of this site and the services it provides, you agree that the MyProcedureTM website does not constitute a service that targets any one community, user group, business, or industry. Because the site is designed for educational purposes, you also agree that it does not constitute “doing business” in any specific jurisdiction or soliciting business for us or any of our affiliated companies, subsidiaries, or our parents company or establishing “minimum contacts” with any jurisdiction outside of the state of Minnesota.</p>
+			<p>You expressly agree that this Agreement is entered into in the State of Minnesota, United States of America, and is performed fully within the state of Minnesota and is governed by and shall be construed in all respects under the laws of the State of Minnesota, exclusive of its choice of law or conflict of laws provisions. Exclusive jurisdiction for any dispute arising under this Agreement with the University of Minnesota Medical School, or in any way relating to your use of the MyProcedureTM website, resides in the courts of Hennepin Country in the State of Minnesota and you further agree and expressly consent to the exercise of personal jurisdiction in the courts of the State of Minnesota in connection with any such dispute including any claim involving the University of Minnesota Medical School, or its affiliates, subsidiaries, employees, contractors, officers, directors, telecommunication providers, and content providers, and you waive any jurisdictional, venue, or inconvenient forum objects in such courts.</p>
+			<p>If any provision of these Terms and Conditions is found to be invalid by any court having competent jurisdiction, the invalidity of such provision shall not affect the validity of the remaining provisions of these Terms and Conditions, which shall remain in full force and effect. No waiver of any of these Terms and Conditions shall be deemed a further or continuing waiver of such term or condition or any other term or condition.</p>
+			<p style="font-weight:bold;">COPYRIGHT AND TRADEMARKS</p>
+			<p>The marks MyProcedureTM trademarks and service marks of the Regents of the University of Minnesota.</p>
+			<p>The materials on the site are copyrights by us and/or other applicable rights holders.</p>
+			<p style="font-weight:bold;">COMPLETE AGREEMENT</p>
+			<p>Except as expressly provided in a particular "legal notice" on the MyProcedureTM website, these Terms and Conditions and the University of Minnesota Privacy Policy constitute the entire agreement between you and the University of Minnesota Medical School with respect to the use of the MyProcedureTM website. This Agreement may not be modified, in whole or in part, except as described elsewhere in this Agreement. Anything contained on the MyProcedureTM website inconsistent with or conflicting with the terms of this Agreement shall be superseded by the terms of this Agreement.</p>
+			<p>©2011. The Regents of the University of Minnesota. All Rights Reserved.</p>
+		</div>
+		
+		<BR><button onclick="document.getElementById('tacou').style.visibility='hidden'; startMapLoading('assets/copperlichtdata/male_lower_revc.ccbjs',1087,'anatomy-models');" type="button" style="position:absolute; margin-left:330px; margin-top:-17px; z-index:102;">I Accept</button>
+		<a href="http://www.myprocedure.umn.edu" style="text-decoration:none;"><button type="button" style="position:absolute; margin-left:410px; margin-top:-17px; z-index:102;">Cancel</button></a>
+	
+	</div>
+	
+	<div align="center" style="pointer-events:auto; color:#fff;">
+		<canvas id="3darea" width="1024" height="638" style="background-color:#FFF; z-index:-1; cursor:url(assets/img/scene/handOPEN.cur), auto; position:absolute; top:0px; left:0px; visibility:hidden;"></canvas>
+		<div id="cl_loadinglabel" align="center" style="position:absolute; left:50%; top:50%; margin-left:-188px; margin-top:-88px; height:174px; width:376px; cursor:wait; z-index:2; opacity:0.0; filter:alpha(opacity=0); visibility:hidden;">
+			<img src="assets/copperlichtdata/loading2.gif" height="174px" width="376px"/> 
+		</div>
+		<div id="cl_nowebgl" style="position:absolute; left:50%; margin-left:-512px; display:none; pointer-events:auto; -o-user-select:all; -moz-user-select:all; -khtml-user-select:all; -webkit-user-select:all; z-index:4"> 
+			<img src="assets/img/scene/sorryBG.png" height="264px" style="z-index:2; pointer-events:none; -o-user-select:none; -moz-user-select:none; -khtml-user-select:none; -webkit-user-select:none;"/>
+			<p style="color:#000; font-size:18pt; text-align:center; z-index:2; font-family:helvetica;">Sorry, your browser does not appear to support WebGL (or it is disabled).
+			<br>A WebGL-enabled browser is required to view the MyProcedure<sup>TM</sup> models.
+				<ul style="text-align:left; line-height:20px; list-style-type:circle; color:#000; padding:5px; font-size:15pt; text-align:left; pointer-events:auto; font-family:helvetica; width:700px;">
+					<li>If you are using Internet Explorer, Google has created a plugin that will give you access to all of the rich web-features you've been missing! Download it <a href="http://www.google.com/chromeframe/eula.html" target="_blank">here</a>. To learn more about this new product called Google Chrome Frame, click <a href="http://code.google.com/chrome/chromeframe/" target="_blank">here</a>.</li><BR>
+					<li><a href="http://www.mozilla.org/en-US/firefox/fx/">Mozilla Firefox</a> and <a href="http://www.google.com/chrome">Google Chrome</a> are currently the only browsers supporting WebGL-enabled features in their stable versions. If you are not using the Google Chrome frame plugin for Internet Explorer, please make sure that you are using one of these browsers.</li><BR>
+					<li>WebGL is a new technology and is not currently compatible with all graphics cards. For more help with enabling WebGL on your browser, <a href="http://www.google.com/support/chrome/bin/answer.py?answer=1220892" target="_blank">click here</a> for Chrome users and <a href="https://support.mozilla.com/en-US/kb/how-do-i-upgrade-my-graphics-drivers" target="_blank">click here</a> for Firefox users.</li><BR>
+					<li>If you believe you are seeing this message in error, refresh the page and try loading the scene again.</li><BR>
+					<li>We apologize for the inconvenience. We really promise that MyProcedure<sup>TM</sup> is worth the time and wait!</li><BR>
+				</ul>
+			</p>
+		</div>  
+	</div>
+</body>
+</html>
